@@ -12,7 +12,6 @@
 - 계획서: https://docs.google.com/document/d/1Qf1yQeCN_9ve3Xqfu_Hs9jfxyrzhoQ7nQQ9_SVUAOGU/edit?usp=sharing
 - 간트차트: https://docs.google.com/spreadsheets/d/1OSCz_rQfANklYVEtXTYFboh69LATTr2lSVIYhAIjUhU/edit?usp=sharing
 - 요구사항: https://docs.google.com/document/d/1i_VJnh0t7dKxOaYDYU78BHFfPN-elNi4U8691l5C_X0/edit?usp=sharing
-- 정리: https://docs.google.com/document/d/12pHIOndxjMRJAXIgvV61QpfGKZ3LNItQIX9H-l2YXqk/edit
 
-## 데이터베이스 구현
+## 데이터베이스
 ![image](https://user-images.githubusercontent.com/50590132/95686478-fb5fe600-0c38-11eb-940f-e72996c67121.png)
