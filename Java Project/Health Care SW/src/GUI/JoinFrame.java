@@ -1,115 +1,124 @@
 package GUI;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class JoinFrame extends JFrame {
 
-	private JPanel contentPane;
-	private JLabel JoinLabel;
-	private JButton JoinCompleteBtn;
-	private JTextField IdField;
-	private JPasswordField PwField;
-	private JTextField NameField;
-	private JRadioButton MaleRB;
-	private JRadioButton FemaleRB;
-	private JTextField PhoneField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		JoinFrame frame = new JoinFrame();
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public JoinFrame() {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(430, 490);
+		setSize(400, 530);
+		setResizable(false);
 		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JoinLabel = new JLabel("회원가입");
+		Container c = getContentPane();
+		c.setLayout(null);
+		
+		//////////////////// Title Label ////////////////////
+		JLabel TitleLabel = new JLabel("회원가입");
 		Font f1 = new Font("돋움", Font.BOLD, 20); //궁서 바탕 돋움
-		JoinLabel.setFont(f1); 
-		JoinLabel.setBounds(159, 41, 101, 20);
-		contentPane.add(JoinLabel);
+		TitleLabel.setFont(f1); 
+		TitleLabel.setBounds(150, 40, 100, 20);
 		
-		JLabel label = new JLabel("ID");
-		label.setBounds(69, 113, 69, 20);
-		contentPane.add(label);
+		//////////////////// Label Panel ////////////////////
+		JPanel LabelPanel = new JPanel();
+		LabelPanel.setLayout(new GridLayout(7, 1, 5, 5));
+		LabelPanel.setBounds(70, 100, 70, 280);
 		
-		JLabel lblUsername = new JLabel("PW");
-		lblUsername.setBounds(69, 163, 69, 20);
-		contentPane.add(lblUsername);
+		JLabel IdLabel = new JLabel("아이디");
+		LabelPanel.add(IdLabel);
+		JLabel PwLabel = new JLabel("비밀번호");
+		LabelPanel.add(PwLabel);
+		JLabel NameLabel = new JLabel("이름");
+		LabelPanel.add(NameLabel);
+		JLabel SexLabel = new JLabel("성별");
+		LabelPanel.add(SexLabel);
+		JLabel BirthLabel = new JLabel("생년월일");
+		LabelPanel.add(BirthLabel);
+		JLabel PhoneLabel = new JLabel("전화번호");
+		LabelPanel.add(PhoneLabel);
+		JLabel TypeLabel = new JLabel("이용타입");
+		LabelPanel.add(TypeLabel);
 		
-		JLabel lblName = new JLabel("이름");
-		lblName.setBounds(69, 210, 69, 20);
-		contentPane.add(lblName);
+		//////////////////// DataPanel //////////////////// 
+		JPanel DataPanel = new JPanel();
+		DataPanel.setLayout(new GridLayout(7, 1, 5, 5));
+		DataPanel.setBounds(150, 100, 150, 280);
 		
-		JLabel lblEmail = new JLabel("성별");
-		lblEmail.setBounds(69, 257, 69, 20);
-		contentPane.add(lblEmail);
+		JTextField IdField = new JTextField();
+		DataPanel.add(IdField);
 		
-		JLabel lblPhone = new JLabel("전화번호");
-		lblPhone.setBounds(69, 304, 69, 20);
-		contentPane.add(lblPhone);
+		JPasswordField PwField = new JPasswordField();
+		DataPanel.add(PwField);
 		
-		IdField = new JTextField();
-		IdField.setColumns(10);
-		IdField.setBounds(159, 106, 186, 35);
-		contentPane.add(IdField);
+		JTextField NameField = new JTextField();
+		DataPanel.add(NameField);
 		
-		PwField = new JPasswordField();
-		PwField.setColumns(10);
-		PwField.setBounds(159, 156, 186, 35);
-		contentPane.add(PwField);
+		JPanel SexPanel = new JPanel();
+		JRadioButton ManRB = new JRadioButton("남성", true);
+		JRadioButton WomanRB = new JRadioButton("여성");
+		ButtonGroup SG = new ButtonGroup();
+		SG.add(ManRB);
+		SG.add(WomanRB);
+		SexPanel.add(ManRB);
+		SexPanel.add(WomanRB);
+		DataPanel.add(SexPanel);
 		
-		NameField = new JTextField();
-		NameField.setColumns(10);
-		NameField.setBounds(159, 203, 186, 35);
-		contentPane.add(NameField);
-
-		ButtonGroup SexRGroup = new ButtonGroup();
-		MaleRB = new JRadioButton("남성");
-		FemaleRB = new JRadioButton("여성", true);
-		SexRGroup.add(MaleRB);
-		SexRGroup.add(FemaleRB);
-        MaleRB.setBounds(159, 250, 186, 35);
-        FemaleRB.setBounds(240, 250, 186, 35);
-		contentPane.add(FemaleRB);
-		contentPane.add(MaleRB);
+		JTextField BirthField = new JTextField();
+		BirthField.setText("yyyymmdd");
+		DataPanel.add(BirthField);
 		
+		JTextField PhoneField = new JTextField();
+		PhoneField.setText("000-0000-0000");
+		DataPanel.add(PhoneField);
 		
-		PhoneField = new JTextField();
-		PhoneField.setColumns(10);
-		PhoneField.setBounds(159, 297, 186, 35);
-		contentPane.add(PhoneField);
+		JPanel TypePanel = new JPanel();
+		JRadioButton UserRB = new JRadioButton("일반인", true);
+		JRadioButton ExpertRB = new JRadioButton("전문가");
+		ButtonGroup TG = new ButtonGroup();
+		TG.add(UserRB);
+		TG.add(ExpertRB);
+		TypePanel.add(UserRB);
+		TypePanel.add(ExpertRB);
+		DataPanel.add(TypePanel);
 		
-		JoinCompleteBtn = new JButton("완료");
-		JoinCompleteBtn.setBounds(206, 363, 139, 29);
-		contentPane.add(JoinCompleteBtn);
+        //////////////////// Button Panel ////////////////////
+		JPanel BtnPanel = new JPanel();
+		BtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 5));
+		BtnPanel.setBounds(0, 430, 400, 50);
+		
+		JButton CancelBtn = new JButton("취소");
+		BtnPanel.add(CancelBtn);
+		
+		JButton CompleteBtn = new JButton("완료");
+		BtnPanel.add(CompleteBtn);
+		
+        //////////////////// Add to Container ////////////////////
+		c.add(TitleLabel);
+		c.add(LabelPanel);
+		c.add(DataPanel);
+		c.add(BtnPanel);
 		
 		setVisible(true);
-		//회원가입완료 액션
-		JoinCompleteBtn.addActionListener(new ActionListener() {
-			
+		
+		//////////////////// Add ActionListener  ////////////////////
+		CompleteBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, IdField.getText()+" 계정의 회원가입이 완료되었습니다.");
 				dispose();
-				
 			}
 		});
-
+		
+		CancelBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 }

@@ -11,14 +11,11 @@ public class LoginFrame extends JFrame {
 	private JPasswordField PwField;
 	private JButton LoginBtn, JoinBtn;
 
-	public static void main(String[] args) {
-		LoginFrame frame = new LoginFrame();
-	}
-
 	public LoginFrame() {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 300);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,6 +63,8 @@ public class LoginFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, IdField.getText()+" 로그인 성공");
+				dispose();
+				User_Category frame = new User_Category();
 			}
 		});
 	}
