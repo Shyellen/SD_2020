@@ -14,4 +14,4 @@
 - 요구사항: https://docs.google.com/document/d/1i_VJnh0t7dKxOaYDYU78BHFfPN-elNi4U8691l5C_X0/edit?usp=sharing
 
 ## 데이터베이스
-![image](https://user-images.githubusercontent.com/50590132/95686478-fb5fe600-0c38-11eb-940f-e72996c67121.png)
+![image](https://user-images.githubusercontent.com/50590132/98459343-63283300-21dd-11eb-81e2-9061d96eada9.png)
