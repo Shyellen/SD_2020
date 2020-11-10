@@ -1,53 +1,45 @@
-{\rtf1\ansi\ansicpg949\cocoartf2513
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset129 AppleSDGothicNeo-Regular;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww16200\viewh13200\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+CREATE TABLE PEOPLE(
+	Name character varying(25) NOT NULL,
+	Id character varying(25) NOT NULL,
+	pw character varying(25) NOT NULL,
+/*  비밀번호 저장은 해슁이나 다른걸 쓰긴해야 하는데 일단 그냥 저장*/
+	Sex  character varying(8) check (Sex in ('남','여')),
+	Type character varying(5),
+	Birth Date,
+primary key(ID)
+);
 
-\f0\fs48 \cf0 
-CREATE TABLE PEOPLE(\
-	Name character varying(25) NOT NULL,\
-	Id character varying(25) NOT NULL,\
-	pw character varying(25) NOT NULL,\
-/*  비밀번호 저장은 해슁이나 다른걸 쓰긴해야 하는데 일단 그냥 저장*/\
-	Sex  character varying(8) check (Sex in ('남','여')),\
-	Type character varying(5),\
-	Birth Date,\
-primary key(ID)\
-);\
-\
-CREATE TABLE CATEGORY(\
-	Cnum integer,\
-	Cname character varying(30),\
-primary key(Cnum)\
-);\
-\
-CREATE TABLE EVENT(\
-	Enum integer,\
-	Eame character varying(30),\
-	Etype character varying(5),\
-primary key(Enum)\
-);\
-\
-CREATE TABLE USER_DATA(\
-	Uindex integer,\
-	Date Date,\
-	Detail text,\
-primary key(Uindex)\
-);\
-\
-CREATE TABLE EXPERT_DATA(\
-	Eindex integer,\
-	EComment text,\
-	Emergency character varying(2) check (Emergency in ('1','0')),\
-primary key(Eindex)\
-);\
-\
-CREATE TABLE PAYMENT(\
-	payTF character varying(2) check (payTF in ('1','0'))\
-);\
-\
-CREATE TABLE SEND(\
-	Ucomment text\
-);}
+CREATE TABLE CATEGORY(
+	Cnum integer,
+	Cname character varying(30),
+primary key(Cnum)
+);
+
+CREATE TABLE EVENT(
+	Enum integer,
+	Eame character varying(30),
+	Etype character varying(5),
+primary key(Enum)
+);
+
+CREATE TABLE USER_DATA(
+	Uindex integer,
+	Date Date,
+	Detail text,
+primary key(Uindex)
+);
+
+CREATE TABLE EXPERT_DATA(
+	Eindex integer,
+	EComment text,
+	Emergency character varying(2) check (Emergency in ('1','0')),
+primary key(Eindex)
+);
+
+CREATE TABLE PAYMENT(
+	payTF character varying(2) check (payTF in ('1','0'))
+);
+
+CREATE TABLE SEND(
+	Ucomment text
+);
