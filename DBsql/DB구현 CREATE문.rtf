@@ -1,46 +1,39 @@
 ﻿CREATE TABLE PEOPLE(
 	Name character varying(25) NOT NULL,
 	Id character varying(25) NOT NULL,
-	pw character varying(25) NOT NULL,
-/*  비밀번호 저장은 해슁이나 다른걸 쓰긴해야 하는데 일단 그냥 저장*/
+	pw character varying(25) NOT NULL, 
 	Sex  character varying(8) check (Sex in ('남','여')),
 	Type character varying(5),
 	Birth Date,
 primary key(ID)
 );
-
 CREATE TABLE CATEGORY(
 	Cnum integer,
 	Cname character varying(30),
 primary key(Cnum)
 );
-
 CREATE TABLE EVENT(
 	Enum integer,
 	Eame character varying(30),
 	Etype character varying(5),
 primary key(Enum)
 );
-
 CREATE TABLE USER_DATA(
 	Uindex integer,
 	Date Date,
 	Detail text,
 primary key(Uindex)
 );
-
 CREATE TABLE EXPERT_DATA(
 	Eindex integer,
 	EComment text, 
 primary key(Eindex)
 );
-
 CREATE TABLE PAYMENT(
 	payTF character varying(2) check (payTF in ('1','0'))
 	UId character varying(25) NOT NULL,
 　　　　EId character varying(25) NOT NULL
 );
-
 CREATE TABLE SEND(
 	Ucomment text,
 	Important boolean
@@ -61,4 +54,3 @@ CREATE TABLE WRITE(
 	UId character varying(25) NOT NULL,
 　　　　Eindex integer
 );
-
