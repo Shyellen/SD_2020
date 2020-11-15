@@ -54,7 +54,7 @@ public class CreateDB {
 			int res;
 			// Let's execute an SQL statement.
 			// 만약 pgAdmin에 이미 테이블이 있다면 해당 코드를 사용해서 제거하고 다시 CREATE합니다.
-			// DB에 7개의 table이 존재하지 않는다면 주석처리 해주세요 
+			// DB에 11개의 table이 존재하지 않는다면 주석처리 해주세요 
 			sql = "DROP TABLE " + "PEOPLE" + " CASCADE;";
 			sql += "DROP TABLE " + "CATEGORY" + " CASCADE;";
 			sql += "DROP TABLE " + "EVENT" + " CASCADE;";
@@ -62,17 +62,20 @@ public class CreateDB {
 			sql += "DROP TABLE " + "EXPERT_DATA" + " CASCADE;";
 			sql += "DROP TABLE " + "PAYMENT" + " CASCADE;";
 			sql += "DROP TABLE " + "SEND" + " CASCADE;";
+			sql += "DROP TABLE " + "MAKE" + " CASCADE;";
+			sql += "DROP TABLE " + "RECORD" + " CASCADE;";
+			sql += "DROP TABLE " + "MANAGE" + " CASCADE;";
+			sql += "DROP TABLE " + "WRITE" + " CASCADE;";
 			//System.out.println(sql);
 			res = stmt.executeUpdate(sql); 
 			if(res == 0) 
 				System.out.println("Table was successfully dropped.");
 			StringBuffer sb = new StringBuffer();
-			// 6개의 TABLE을 생성합니다. 
+			// 11개의 TABLE을 생성합니다. 
 			sb.append("CREATE TABLE PEOPLE(\n" + 
 					"	Name character varying(25) NOT NULL,\n" + 
 					"	Id character varying(25) NOT NULL,\n" + 
 					"	pw character varying(25) NOT NULL,\n" + 
-					"/*  비밀번호는 그냥 저장하면 될까요? 해슁같은걸 해야할까요?*/\n" + 
 					"	Sex  character varying(8) check (Sex in ('남','여')),\n" + 
 					"	Type character varying(5),\n" + 
 					"	Birth Date,\n" + 
@@ -97,10 +100,30 @@ public class CreateDB {
 					"	Emergency character varying(2) check (Emergency in ('1','0')),\n" + 
 					"primary key(Eindex));");
 			sb.append("CREATE TABLE PAYMENT(\n" + 
-					"	payTF character varying(2) check (payTF in ('1','0')));");
+					"	payTF character varying(2) check (payTF in ('1','0')),\n" +
+					"	UId character varying(25) NOT NULL,\n" +
+					"	EId character varying(25) NOT NULL" +
+					");");
 			sb.append("CREATE TABLE SEND(\n" + 
-					"	Ucomment text);");
-			
+					"	Ucomment text,\n" +
+					"	Important boolean\n" +
+					");");
+			sb.append("CREATE TABLE MAKE(\n" + 
+					"	UId character varying(25) NOT NULL,\n" +
+					"	num integer\n" +
+					");");
+			sb.append("CREATE TABLE RECORD(\n" + 
+					"	Uindex integer,\n" +
+					"	num integer\n" +
+					");");
+			sb.append("CREATE TABLE MANAGE(\n" + 
+					"	UId character varying(25) NOT NULL,\n" +
+					"	Uindex integer\n" +
+					");");
+			sb.append("CREATE TABLE WRITE(\n" + 
+					"	UId character varying(25) NOT NULL,\n" +
+					"	Eindex integer\n" +
+					");");
 			System.out.println(sb);
 			sql = sb.toString();
 			//System.out.println(sql);

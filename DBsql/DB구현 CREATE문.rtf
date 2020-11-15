@@ -30,7 +30,7 @@ CREATE TABLE EXPERT_DATA(
 primary key(Eindex)
 );
 CREATE TABLE PAYMENT(
-	payTF character varying(2) check (payTF in ('1','0'))
+	payTF character varying(2) check (payTF in ('1','0')),
 	UId character varying(25) NOT NULL,
 　　　　EId character varying(25) NOT NULL
 );
