@@ -15,5 +15,5 @@
 
 ## 데이터베이스
 ![image](https://user-images.githubusercontent.com/50590132/98459343-63283300-21dd-11eb-81e2-9061d96eada9.png)
-![DB table](https://user-images.githubusercontent.com/54494793/98623501-2c722a00-234f-11eb-8560-938003c8bec5.jpg)
+![화면 캡처 2020-11-15 205732](https://user-images.githubusercontent.com/54494793/99184347-7dd24d00-2785-11eb-8d08-7ab63f4e128c.png)
 
