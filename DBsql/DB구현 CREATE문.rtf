@@ -1,4 +1,4 @@
-CREATE TABLE PEOPLE(
+﻿CREATE TABLE PEOPLE(
 	Name character varying(25) NOT NULL,
 	Id character varying(25) NOT NULL,
 	pw character varying(25) NOT NULL,
@@ -31,15 +31,34 @@ primary key(Uindex)
 
 CREATE TABLE EXPERT_DATA(
 	Eindex integer,
-	EComment text,
-	Emergency character varying(2) check (Emergency in ('1','0')),
+	EComment text, 
 primary key(Eindex)
 );
 
 CREATE TABLE PAYMENT(
 	payTF character varying(2) check (payTF in ('1','0'))
+	UId character varying(25) NOT NULL,
+　　　　EId character varying(25) NOT NULL
 );
 
 CREATE TABLE SEND(
-	Ucomment text
+	Ucomment text,
+	Important boolean
 );
+CREATE TABLE MAKE(
+	UId character varying(25) NOT NULL,
+	num integer
+);
+CREATE TABLE RECORD(
+	Uindex integer,
+	num integer
+);
+CREATE TABLE MANAGE(
+	UId character varying(25) NOT NULL,
+	Uindex integer
+);
+CREATE TABLE WRITE(
+	UId character varying(25) NOT NULL,
+　　　　Eindex integer
+);
+
