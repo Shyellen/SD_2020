@@ -12,6 +12,7 @@
 - 계획서: https://docs.google.com/document/d/1Qf1yQeCN_9ve3Xqfu_Hs9jfxyrzhoQ7nQQ9_SVUAOGU/edit?usp=sharing
 - 간트차트: https://docs.google.com/spreadsheets/d/1OSCz_rQfANklYVEtXTYFboh69LATTr2lSVIYhAIjUhU/edit?usp=sharing
 - 요구사항: https://docs.google.com/document/d/1i_VJnh0t7dKxOaYDYU78BHFfPN-elNi4U8691l5C_X0/edit?usp=sharing
+- 상세명세서: [SD Team6 상세명세서.pdf](https://github.com/Shyellen/SD_2020/files/5544342/SD.Team6.pdf)
 
 ## 데이터베이스
 ![image](https://user-images.githubusercontent.com/50590132/98459343-63283300-21dd-11eb-81e2-9061d96eada9.png)
