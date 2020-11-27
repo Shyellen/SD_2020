@@ -17,4 +17,13 @@
 ## 데이터베이스
 ![image](https://user-images.githubusercontent.com/50590132/98459343-63283300-21dd-11eb-81e2-9061d96eada9.png)
 ![화면 캡처 2020-11-15 205732](https://user-images.githubusercontent.com/54494793/99184347-7dd24d00-2785-11eb-8d08-7ab63f4e128c.png)
-
+ 
+ 
+ ###### ◆ postgresql 다운방법
+    − 다운 링크 : https://www.postgresql.org/
+    - 비밀번호 : 0001로 해야함
+    
+ ###### ◆ postgresql 초기설정
+    - 다운로드하고 pgAdmin 실행하면 브라우저에서 열림
+    - postgreSQL 12 오른쪽클릭하고 creat -> database 누름
+    - HealthCareSW 이름 넣고 save 누르면 됨
