@@ -5,13 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import java.sql.*; // import JDBC package
 
 public class User_Category extends JFrame {
 	private static int idx = 0;
 	private static boolean delete = false;
 	
 	
-	public User_Category() {
+	public User_Category(Connection conn, Statement stmt) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
@@ -128,7 +129,7 @@ public class User_Category extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				idx = 0;
 				dispose();
-				LoginFrame frame = new LoginFrame();
+				LoginFrame frame = new LoginFrame(conn, stmt);
 			}
         });
         

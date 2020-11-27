@@ -3,7 +3,7 @@ import java.sql.*; // import JDBC package
 public class CreateDB {
 	public static final String URL = "jdbc:postgresql://127.0.0.1:5432/HealthCareSW";
 	public static final String USER_ID ="postgres";
-	public static final String USER_PASSWD =""; // ìì‹ ì˜ DB ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” 
+	public static final String USER_PASSWD =""; // ÀÚ½ÅÀÇ DB ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä 
 	
 	public static void main(String[] args) {
 		Connection conn = null; // Connection object
@@ -42,9 +42,9 @@ public class CreateDB {
 	public static void createTable(Connection conn, Statement stmt) {
 		// Fill out your code.
 		String sql = ""; // an SQL statement
-		String table_parsing = "";	// í…Œì´ë¸” Stringì—ì„œ $ê°’ì„ ì—†ì•¤ ê²°ê³¼ë¥¼ ë‹´ì„ ë³€ìˆ˜ 
-		String value = "";	// txt íŒŒì¼ì—ì„œ ì½ì–´ë“¤ì¸ ê°’ì„ ì €ì¥í•  ë³€ìˆ˜ 
-		String[] value_parsing;	// valueì— ì €ì¥ëœ Stringì„ íŒŒì‹±í•œ ê²°ê³¼ë¥¼ ë‹´ì„ ë³€ìˆ˜ 
+		String table_parsing = "";	// Å×ÀÌºí String¿¡¼­ $°ªÀ» ¾ø¾Ø °á°ú¸¦ ´ãÀ» º¯¼ö 
+		String value = "";	// txt ÆÄÀÏ¿¡¼­ ÀĞ¾îµéÀÎ °ªÀ» ÀúÀåÇÒ º¯¼ö 
+		String[] value_parsing;	// value¿¡ ÀúÀåµÈ StringÀ» ÆÄ½ÌÇÑ °á°ú¸¦ ´ãÀ» º¯¼ö 
 		
 		// Execute an SQL statement for CREATE TABLE
 		try {
@@ -53,8 +53,8 @@ public class CreateDB {
 			stmt = conn.createStatement();
 			int res;
 			// Let's execute an SQL statement.
-			// ë§Œì•½ pgAdminì— ì´ë¯¸ í…Œì´ë¸”ì´ ìˆë‹¤ë©´ í•´ë‹¹ ì½”ë“œë¥¼ ì‚¬ìš©í•´ì„œ ì œê±°í•˜ê³  ë‹¤ì‹œ CREATEí•©ë‹ˆë‹¤.
-			// DBì— 11ê°œì˜ tableì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì£¼ì„ì²˜ë¦¬ í•´ì£¼ì„¸ìš” 
+			// ¸¸¾à pgAdmin¿¡ ÀÌ¹Ì Å×ÀÌºíÀÌ ÀÖ´Ù¸é ÇØ´ç ÄÚµå¸¦ »ç¿ëÇØ¼­ Á¦°ÅÇÏ°í ´Ù½Ã CREATEÇÕ´Ï´Ù.
+			// DB¿¡ 11°³ÀÇ tableÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ÁÖ¼®Ã³¸® ÇØÁÖ¼¼¿ä 
 			sql = "DROP TABLE " + "PEOPLE" + " CASCADE;";
 			sql += "DROP TABLE " + "CATEGORY" + " CASCADE;";
 			sql += "DROP TABLE " + "EVENT" + " CASCADE;";
@@ -71,12 +71,12 @@ public class CreateDB {
 			if(res == 0) 
 				System.out.println("Table was successfully dropped.");
 			StringBuffer sb = new StringBuffer();
-			// 11ê°œì˜ TABLEì„ ìƒì„±í•©ë‹ˆë‹¤. 
+			// 11°³ÀÇ TABLEÀ» »ı¼ºÇÕ´Ï´Ù. 
 			sb.append("CREATE TABLE PEOPLE(\n" + 
 					"	Name character varying(25) NOT NULL,\n" + 
 					"	Id character varying(25) NOT NULL,\n" + 
 					"	pw character varying(25) NOT NULL,\n" + 
-					"	Sex  character varying(8) check (Sex in ('ë‚¨','ì—¬')),\n" + 
+					"	Sex  character varying(8) check (Sex in ('³²','¿©')),\n" + 
 					"	Type character varying(5),\n" + 
 					"	Birth Date,\n" + 
 					"primary key(ID))"+ ";");
@@ -141,4 +141,3 @@ public class CreateDB {
 
 	}
 }
-

@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
-
+import java.sql.*; // import JDBC package
 
 public class MainFrame extends JFrame {
 
