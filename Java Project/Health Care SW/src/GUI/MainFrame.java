@@ -1,29 +1,18 @@
 package GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import java.sql.*; // import JDBC package
 
+
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table1;
-	DefaultTableModel model1,model2;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private boolean payTF = false;
 
 	public MainFrame() {
 		setTitle("Health Care SW");
@@ -32,14 +21,6 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		
-		//////////////////////////// 상단 메뉴 바 ////////////////////////////
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		JMenu optionMenu = new JMenu("Option");
-		menuBar.add(optionMenu);
-		JMenuItem logoutMenuItem = new JMenuItem("logout");
-		optionMenu.add(logoutMenuItem);
 		
 		//////////////////////////// 기본 컨텐트팬 ////////////////////////////
 		contentPane = new JPanel();
@@ -50,15 +31,13 @@ public class MainFrame extends JFrame {
 		//////////////////////////// 카테고리 이름 출력 패널  ////////////////////////////
 		JPanel northPanel = new JPanel();
 		contentPane.add(northPanel, BorderLayout.NORTH);
-		
-		JLabel catName = new JLabel("Category Name");
+		JLabel catName = new JLabel(User_Category.name);
 		catName.setFont(new Font("굴림", Font.BOLD, 50));
 		catName.setBackground(new Color(204, 255, 255));
 		northPanel.add(catName);
 		
 		//////////////////////////// 광고 출력 패널 ////////////////////////////
 		JPanel southPanel = new JPanel();
-		contentPane.add(southPanel, BorderLayout.SOUTH);
 		southPanel.setPreferredSize(new Dimension(1080, 50));
 		southPanel.setLayout(new GridLayout(1, 3, 5, 5));
 		
@@ -68,10 +47,11 @@ public class MainFrame extends JFrame {
 		JPanel ADpanel = new JPanel();
 		ADpanel.setBackground(Color.black);
 		southPanel.add(ADpanel);
+		JButton PaymentBtn = new JButton("결제하기");
+		PaymentBtn.setEnabled(!payTF);
+		southPanel.add(PaymentBtn);
 		
-		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
-		southPanel.add(horizontalStrut_1);
-		
+		contentPane.add(southPanel, BorderLayout.SOUTH);
 		//////////////////////////// 중앙 패널: 버튼+데이터 ////////////////////////////
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
@@ -100,27 +80,68 @@ public class MainFrame extends JFrame {
 		Component verticalStrut_3 = Box.createVerticalStrut(20);
 		btnPanel.add(verticalStrut_3);
 		
-		JButton btnNewButton = new JButton("←");
-		btnPanel.add(btnNewButton);
+		JButton btnBackButton = new JButton("←");
+		btnPanel.add(btnBackButton);
 		
 		//////////////////////////// 중앙-중앙 데이터 출력 패널 ////////////////////////////
-		JPanel mainPanel = new JPanel();
-		centerPanel.add(mainPanel, BorderLayout.CENTER);
+		JPanel MainArea = new JPanel(new GridBagLayout());
+		centerPanel.add(new JScrollPane(MainArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(4,4,4,4);
 		
-		String col1[]={"종목", "보기","전송"};
-    	String row1[][]=new String[0][3];
-    	model1=new DefaultTableModel(row1,col1) {
-    		public boolean isCellEditable(int row, int column) {
-    			return false;
-    		}
-    	};
-		table1 = new JTable(model1);
-		table1.setColumnSelectionAllowed(true);
-		table1.setShowVerticalLines(false);
-		JScrollPane js1=new JScrollPane(table1);
-		table1.getTableHeader().setReorderingAllowed(false);
-		mainPanel.setLayout(new BorderLayout(10, 10));
-		mainPanel.add(js1);
+		JPanel panel[] = new JPanel[10];
+        for (int i = 0; i < 10; i++) {
+        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        	panel[i].setBackground(Color.ORANGE);
+        	panel[i].setPreferredSize(new Dimension(970, 70));
+        }
+        Font f1 = new Font("돋움", Font.BOLD, 20);
+        for (int ii=0; ii<10; ii++) {
+            gbc.gridy = ii;
+            gbc.gridx = 0;
+            panel[ii].add(new JLabel("Name of Event")).setFont(f1);
+            Component horizontalStrut6 = Box.createHorizontalStrut(50);
+            panel[ii].add(horizontalStrut6);
+            panel[ii].add(new JButton("기록 보기"));
+            panel[ii].add(new JButton("기록 추가"));
+            panel[ii].add(new JButton("기록 이미지"));
+            panel[ii].add(new JButton("전송"));
+            
+            MainArea.add(panel[ii], gbc);
+        }
+
+		setVisible(true);
+		
+		//////////////////// 버튼 동작 ///////////////////////
+		btnBackButton.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				User_Category frame = new User_Category();
+			}
+        });
+		btnAddEvent.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddEventFrame frame = new AddEventFrame();
+				
+			}
+        });
+		PaymentBtn.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                int result = JOptionPane.showConfirmDialog(null, "결제하시겠습니까?", "PAYMENT", JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                	payTF = true;
+                	PaymentBtn.setEnabled(!payTF);
+                	JOptionPane.showMessageDialog(null, "결제완료");
+                }
+                else {
+                	JOptionPane.showMessageDialog(null, "결제취소");
+                }
+            }
+        });
+		
 	}
 
 }
