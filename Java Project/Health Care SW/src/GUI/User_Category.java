@@ -7,13 +7,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.sql.*; // import JDBC package
 
-public class User_Category extends JFrame {
+public class User_Category extends JFrame implements ActionListener {
+	private JButton InsertBtn;
+	private JButton DeleteBtn;
+	
 	private static int idx = 0;
 	private static boolean delete = false;
 	public static String name=null;
-
-	public User_Category(Connection conn, Statement stmt) {
-		setTitle("Health Care SW");
+	
+	public User_Category(Connection conn, Statement stmt, String Id) {
+		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
 		setResizable(false);
@@ -21,8 +24,8 @@ public class User_Category extends JFrame {
 		setLayout(null);
 		
 		//////////////////// Title Label ////////////////////
-		JLabel TitleLabel = new JLabel("Ïπ¥ÌÖåÍ≥†Î¶¨");
-		Font f1 = new Font("ÎèãÏõÄ", Font.BOLD, 50);
+		JLabel TitleLabel = new JLabel("ƒ´≈◊∞Ì∏Æ");
+		Font f1 = new Font("µ∏øÚ", Font.BOLD, 50);
 		TitleLabel.setFont(f1);
 		TitleLabel.setBounds(420, 130, 300, 50);
 		add(TitleLabel);
@@ -32,9 +35,9 @@ public class User_Category extends JFrame {
     	BtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	BtnPanel.setBounds(10, 300, 1045, 160);
     	
-    	JButton AddBtn = new JButton("+");
-    	AddBtn.setPreferredSize(new Dimension(150, 150));
-    	BtnPanel.add(AddBtn);
+    	InsertBtn = new JButton("+");
+    	InsertBtn.setPreferredSize(new Dimension(150, 150));
+    	BtnPanel.add(InsertBtn);
     	
     	add(BtnPanel);
     	
@@ -43,7 +46,7 @@ public class User_Category extends JFrame {
     	LogoutPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	LogoutPanel.setBounds(10, 600, 1045, 70);
 		
-    	JButton LogoutBtn = new JButton("Î°úÍ∑∏ÏïÑÏõÉ");
+    	JButton LogoutBtn = new JButton("∑Œ±◊æ∆øÙ");
     	LogoutBtn.setPreferredSize(new Dimension(100, 50));
     	LogoutPanel.add(LogoutBtn);
     	
@@ -62,33 +65,44 @@ public class User_Category extends JFrame {
     	DeletePanel.setVisible(false);
     	
 		//////////////////// Start Deletion Button ////////////////////
-    	JButton StartDeletionBtn = new JButton("-");
+    	JButton DeleteBtn = new JButton("-");
     	if (idx == 0) {
-    		StartDeletionBtn.setEnabled(false);
+    		DeleteBtn.setEnabled(false);
 		}
-    	StartDeletionBtn.setBounds(945, 250, 50, 50);
-    	add(StartDeletionBtn);
-
-        setVisible(true);
+    	DeleteBtn.setBounds(945, 250, 50, 50);
+    	add(DeleteBtn);
         
-		//////////////////// ÎèôÏ†Å ÏÉùÏÑ± Î∞è ÏÇ≠Ï†ú Î≤ÑÌäºÎì§ ////////////////////
-        JButton btn[] = new JButton[5];
-        for (int i = 0; i < 5; i++) {
-        	btn[i] = new JButton();
+		//////////////////// µø¿˚ ª˝º∫ π◊ ªË¡¶ πˆ∆∞µÈ ////////////////////
+    	JButton btn[] = new JButton[5];
+    	for (int i = 0; i < 5; i++)
+    		btn[i] = new JButton();
+    	
+    	idx = checkCatCnt(conn, stmt, Id);
+    	System.out.println("ƒ´≈◊∞Ì∏Æ ºˆ: "+idx);
+    	
+    	if (idx > 0) {
+    		String name[] = checkCatCname(conn, stmt, Id, idx);
+    		for (int i=0; i < idx; i++) {
+    			btn[i].setText(name[i]);
+    			BtnPanel.add(btn[i]);
+    		}
         }
-        
+    	
         JButton RemoveBtn[] = new JButton[5];
         for (int i = 0; i < 5; i++) {
         	RemoveBtn[i] = new JButton();
         }
         
-		//////////////////// Î≤ÑÌäº Ïï°ÏÖò ////////////////////
-        AddBtn.addActionListener(new ActionListener() {	
+        setVisible(true);
+        
+		//////////////////// πˆ∆∞ æ◊º« ////////////////////
+        InsertBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane popup = new JOptionPane();
-				String CatName = popup.showInputDialog("Ï∂îÍ∞ÄÌï† Ïπ¥ÌÖåÍ≥†Î¶¨ Ïù¥Î¶Ñ ÏûÖÎ†•");
-				if (CatName != null) {
+				String CatName = popup.showInputDialog("√ﬂ∞°«“ ƒ´≈◊∞Ì∏Æ ¿Ã∏ß ¿‘∑¬(2±€¿⁄ ¿ÃªÛ)");
+				if(CatName.length() >= 2) {
+					insertCat(conn, stmt, Id, CatName);
 					btn[idx].setText(CatName);
 					btn[idx].setPreferredSize(new Dimension(150, 150));
 					BtnPanel.add(btn[idx]);
@@ -98,27 +112,27 @@ public class User_Category extends JFrame {
 					idx = idx + 1;
 					setVisible(true);
 					if (idx == 5) {
-						AddBtn.setEnabled(false);
+						InsertBtn.setEnabled(false);
 					}
 					if (idx > 0) {
-						StartDeletionBtn.setEnabled(true);
+						DeleteBtn.setEnabled(true);
 					}
 				}
 			}
 		});
         
-        StartDeletionBtn.addActionListener(new ActionListener() {	
+        DeleteBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (delete == false) {
 					delete = true;
 					DeletePanel.setVisible(true);
-					AddBtn.setEnabled(false);
+					InsertBtn.setEnabled(false);
 				}
 				else {
 					delete = false;
 					DeletePanel.setVisible(false);
-					AddBtn.setEnabled(true);
+					InsertBtn.setEnabled(true);
 				}
 				setVisible(true);
 			}
@@ -137,7 +151,7 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[0].getText());
-			    name = btn[0].getText();
+				name = btn[0].getText();
 				dispose();
 				MainFrame frame = new MainFrame();
 			}
@@ -147,7 +161,7 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[1].getText());
-			    name = btn[1].getText();
+				name = btn[1].getText();
 				dispose();
 				MainFrame frame = new MainFrame();
 			}
@@ -157,7 +171,7 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[2].getText());
-			    name = btn[2].getText();
+				name = btn[2].getText();
 				dispose();
 				MainFrame frame = new MainFrame();
 			}
@@ -167,7 +181,7 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[3].getText());
-			    name = btn[3].getText();
+				name = btn[3].getText();
 				dispose();
 				MainFrame frame = new MainFrame();
 			}
@@ -177,11 +191,98 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[4].getText());
-			    name = btn[4].getText();
+				name = btn[4].getText();
 				dispose();
 				MainFrame frame = new MainFrame();
 			}
 		});
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+	
+	public static int checkCatCnt(Connection conn, Statement stmt, String Id) {	// «ÿ¥Á ID∑Œ ª˝º∫µ» ƒ´≈◊∞Ì∏Æ ºˆ∏¶ »Æ¿Œ«—¥Ÿ.
+		ResultSet rs = null;
+		String DBcnt = "";
+		try {
+			String sql = "SELECT COUNT(*) FROM CMAKE WHERE Uid = '"+Id+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				DBcnt = rs.getString(1);
+			}
+			rs.close();
+		}
+		catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		return Integer.parseInt(DBcnt);
+	}
+	
+	public static String[] checkCatCname(Connection conn, Statement stmt, String Id, int cnt) { // «ÿ¥Á ID∑Œ ª˝º∫µ» ƒ´≈◊∞Ì∏Æ ¿Ã∏ß¿ª »Æ¿Œ«—¥Ÿ.
+		ResultSet rs = null;
+		String[] DBname = new String[cnt];
+		try {
+			String sql = "SELECT Cname FROM Category"
+					+ " WHERE Cnum = (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			int i = 0;
+			while(rs.next()) {
+				DBname[i] = (String) rs.getString(i+1);
+			}
+			rs.close();
+		}
+		catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		return DBname;
+	}
+	
+	public static int insertCat(Connection conn, Statement stmt, String Id, String name) { // ªı∑ŒøÓ ƒ´≈◊∞Ì∏Æ∏¶ ª˝º∫«ÿ ≥÷¥¬¥Ÿ.
+		ResultSet rs = null;
+		String max = "";
+		int num = 0;
+		
+		try {
+			String sql;
+			sql = "SELECT MAX(cnum) FROM category";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next())
+				max = rs.getString(1);
+			rs.close();
+		} catch(SQLException ex2) {
+			System.err.println("sql error = " + ex2.getMessage());
+			System.exit(1);
+		}
+		
+		System.out.println(max);
+		/*
+		
+			
+			//else
+			//	num = Integer.parseInt(max) + 1;
+			//System.out.println(num);
+			/*
+			sql2 = "INSERT INTO category(cnum, cname) VALUES ("+num+", " + name+")";
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql2);
+			System.out.println("Row inserted.");
+			conn.commit();
+			
+			sql3 = "INSERT INTO cmake(Uid, Cnum) VALUES ("+Id+", " + num+")";
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql3);
+			System.out.println("Row inserted.");
+			conn.commit();
+			*/
+		return 1;
+	}
 }

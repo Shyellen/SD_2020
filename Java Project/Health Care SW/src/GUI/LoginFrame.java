@@ -1,7 +1,7 @@
 package GUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*; // import JDBC package
@@ -13,28 +13,34 @@ public class LoginFrame extends JFrame {
 	private JButton LoginBtn, JoinBtn;
 
 	public LoginFrame(Connection conn, Statement stmt) {
-		setTitle("Health Care SW");
+		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 300);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLogin = new JLabel("ID");
-		lblLogin.setBounds(41, 52, 69, 35);
-		contentPane.add(lblLogin);
+		JLabel IdLabel = new JLabel("ID");
+		IdLabel.setBounds(41, 52, 69, 35);
+		contentPane.add(IdLabel);
 		
-		JLabel lblPassword = new JLabel("PW");
-		lblPassword.setBounds(41, 103, 69, 35);
-		contentPane.add(lblPassword);
+		JLabel PwLabel = new JLabel("PW");
+		PwLabel.setBounds(41, 103, 69, 35);
+		contentPane.add(PwLabel);
 		
 		IdField = new JTextField();
 		IdField.setBounds(157, 52, 176, 35);
-		contentPane.add(IdField);
 		IdField.setColumns(10);
+		contentPane.add(IdField);
+		
+		PwField = new JPasswordField();
+		PwField.setBounds(157, 103, 176, 35);
+		PwField.setColumns(10);
+		contentPane.add(PwField);
 		
 		JoinBtn = new JButton("회원가입");
 		JoinBtn.setBounds(229, 154, 104, 29);
@@ -44,14 +50,9 @@ public class LoginFrame extends JFrame {
 		LoginBtn.setBounds(108, 154, 106, 29);
 		contentPane.add(LoginBtn);
 		
-		PwField = new JPasswordField();
-		PwField.setColumns(10);
-		PwField.setBounds(157, 103, 176, 35);
-		contentPane.add(PwField);
-		
 		setVisible(true);
 		
-		//회원가입 액션
+		// 회원가입 액션
 		JoinBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,20 +60,26 @@ public class LoginFrame extends JFrame {
 			}
 		});
 		
-		//로그인 액션
+		// 로그인 액션
 		LoginBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String Id = IdField.getText();
 				char[] Pw = PwField.getPassword();
 				
-				if (checkID(conn, stmt, Id, Pw) && Id.length()!=0) {
-				JOptionPane.showMessageDialog(null, Id+" 로그인 성공");
-				dispose();
-				User_Category frame = new User_Category(conn, stmt);
+				if (checkID(conn, stmt, Id, Pw)) {
+					String Type = checkType(conn, stmt, Id);
+					JOptionPane.showMessageDialog(null, "[성공] " + Id + " 타입: " + Type);
+					if (Type.equals("expert")) {
+						ExpertFrame frame = new ExpertFrame(conn, stmt, Id);
+					}
+					else {
+						User_Category frame = new User_Category(conn, stmt, Id);
+					}
+					dispose();
 				}
-				else {	
-					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호를 확인하세요");
+				else {
+					JOptionPane.showMessageDialog(null, "[실패] 아이디나 비밀번호를 확인하세요.");
 				}
 			}
 		});
@@ -83,11 +90,10 @@ public class LoginFrame extends JFrame {
 		String DBid = "";
 		String DBpw = "";
 		String Pw = String.valueOf(Ppw);
-		//System.out.println(Id.getClass().getName());
-		//System.out.println(Pw.getClass().getName());
+
 		try {
-			String sql = "select Id, Pw from PEOPLE as p \n" + 
-					"where p.Id = " + "'" + Id + "'" + " and p.Pw = " + "'" + Pw + "'";
+			String sql = "SELECT Id, Pw FROM PEOPLE as p \n" + 
+		"WHERE p.Id = " + "'" + Id + "'" + " and p.Pw = " + "'" + Pw + "'";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -101,7 +107,27 @@ public class LoginFrame extends JFrame {
 			System.out.println("error");
 			e.printStackTrace();
 		}
-		if (DBid.equals(Id) && DBpw.equals(Pw)) return true;			// 아이디랑 비밀번호가 있으면 1을 반환. 없으면 0을 반환합니다.
+		if (DBid.equals(Id) && DBpw.equals(Pw)) return true;	// 아이디랑 비밀번호가 있으면 1을 반환. 없으면 0을 반환합니다.
 		else return false;
- }
+	}
+	
+	public static String checkType(Connection conn, Statement stmt, String Id) {	// 해당하는 ID의 Type을 확인합니다.
+		ResultSet rs = null;
+		String DBtype = "";
+		try {
+			String sql = "SELECT Type FROM People WHERE Id='" + Id + "'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				DBtype = rs.getString(1);
+			}
+			rs.close();
+		}
+		catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		return DBtype;
+	}
 }

@@ -12,7 +12,7 @@ public class JoinFrame extends JFrame {
 	public JoinFrame(Connection conn, Statement stmt) {
 		String[] values;
 		values = new String[7];
-		setTitle("Health Care SW");
+		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 530);
 		setResizable(false);
@@ -112,7 +112,6 @@ public class JoinFrame extends JFrame {
 		CompleteBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int z=1;
 				int cnt=0;
 				values[cnt++]=IdField.getText();
 				values[cnt++]=String.valueOf(PwField.getPassword());
@@ -132,25 +131,16 @@ public class JoinFrame extends JFrame {
 				else if(ExpertRB.isSelected()) {
 					values[cnt++]="expert";
 				}
-				for(int i=0;i<7;i++)
-					if(values[i].equals("")) {
-						JOptionPane.showMessageDialog(null, "이미 있는 아이디입니다.");
-						z=0;
-						break;
-					}
+				//for(int i=0;i<7;i++)
+				//	System.out.println(values[i]);
 				
-				if(z==1) {
 				int statesignup = signup(conn, stmt, values);
 				if( statesignup == 1) {
 				JOptionPane.showMessageDialog(null, values[0]+" 계정의 회원가입이 완료되었습니다.");
 				dispose();
 				}
 				else if (statesignup ==0) {		// 이미 있는 아이디 입니다.를 배너로 띄움.
-					JOptionPane.showMessageDialog(null, "이미 있는 아이디입니다.");
-				}
-				else if (statesignup == 2) {
-					JOptionPane.showMessageDialog(null, values[2] + " 님은 가입된 아이디가 있습니다.");
-				}
+					JOptionPane.showMessageDialog(null, "[실패] 이미 존재하는 아이디입니다.");
 				}
 			}
 		});
@@ -166,7 +156,6 @@ public class JoinFrame extends JFrame {
 	public static int signup(Connection conn, Statement stmt, String[] values) {
 		ResultSet rs = null;
 		
-		
 		try {
 			String sql;
 			String sql2 = "select Id, name from PEOPLE as p \n" + 
@@ -175,7 +164,7 @@ public class JoinFrame extends JFrame {
 			rs = stmt.executeQuery(sql2);
 			while(rs.next()) {
 				if (values[0].equals(rs.getString(1))) return 0;
-				if (values[2].equals(rs.getString(2))) return 2;
+				if (values[2].equals(rs.getString(2))) return 0;
 			}
 			rs.close();
 			
@@ -189,10 +178,10 @@ public class JoinFrame extends JFrame {
 			stmt.executeUpdate(sql);
 			System.out.println(" row inserted.");
 			conn.commit();
-		}catch(SQLException ex2) {
+		} catch(SQLException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());
 			System.exit(1);
 		}
-		return 1;	
- }
+		return 1;
+	}
 }

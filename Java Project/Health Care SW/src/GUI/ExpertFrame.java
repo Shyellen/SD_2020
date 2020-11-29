@@ -9,12 +9,12 @@ import javax.swing.table.*;
 import java.sql.*; // import JDBC package
 
 
-public class MainFrame extends JFrame {
+public class ExpertFrame extends JFrame {
 
 	private JPanel contentPane;
 	private boolean payTF = false;
 
-	public MainFrame() {
+	public ExpertFrame(Connection conn, Statement stmt, String Id) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
@@ -120,28 +120,6 @@ public class MainFrame extends JFrame {
 				//User_Category frame = new User_Category();
 			}
         });
-		btnAddEvent.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//AddEventFrame frame = new AddEventFrame();
-				
-			}
-        });
-		PaymentBtn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                int result = JOptionPane.showConfirmDialog(null, "결제하시겠습니까?", "PAYMENT", JOptionPane.YES_NO_OPTION);
-                if(result == JOptionPane.YES_OPTION) {
-                	payTF = true;
-                	PaymentBtn.setEnabled(!payTF);
-                	JOptionPane.showMessageDialog(null, "결제완료");
-                }
-                else {
-                	JOptionPane.showMessageDialog(null, "결제취소");
-                }
-            }
-        });
-		
 	}
 
 }
