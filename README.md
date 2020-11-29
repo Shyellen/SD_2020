@@ -26,6 +26,5 @@
     - HealthCareSW 이름 넣고 save 누르면 됨
 
 ![image](https://user-images.githubusercontent.com/50590132/98459343-63283300-21dd-11eb-81e2-9061d96eada9.png)
-![화면 캡처 2020-11-15 205732](https://user-images.githubusercontent.com/54494793/99184347-7dd24d00-2785-11eb-8d08-7ab63f4e128c.png)
- 
+![DATA TABLE](https://user-images.githubusercontent.com/50590132/100550351-d1cc4e00-32bc-11eb-8548-21b36d179de4.png)
  
