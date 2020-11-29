@@ -71,8 +71,9 @@ public class LoginFrame extends JFrame {
 				dispose();
 				User_Category frame = new User_Category(conn, stmt);
 				}
-				//else {	로그인 실패시 UI 
-				//}
+				else {	
+					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호를 확인하세요");
+				}
 			}
 		});
 	}
