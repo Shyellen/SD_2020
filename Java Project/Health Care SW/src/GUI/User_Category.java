@@ -10,8 +10,8 @@ import java.sql.*; // import JDBC package
 public class User_Category extends JFrame {
 	private static int idx = 0;
 	private static boolean delete = false;
-	
-	
+	public static String name=null;
+
 	public User_Category(Connection conn, Statement stmt) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,8 +21,8 @@ public class User_Category extends JFrame {
 		setLayout(null);
 		
 		//////////////////// Title Label ////////////////////
-		JLabel TitleLabel = new JLabel("Ä«Å×°í¸®");
-		Font f1 = new Font("µ¸¿ò", Font.BOLD, 50);
+		JLabel TitleLabel = new JLabel("ì¹´í…Œê³ ë¦¬");
+		Font f1 = new Font("ë‹ì›€", Font.BOLD, 50);
 		TitleLabel.setFont(f1);
 		TitleLabel.setBounds(420, 130, 300, 50);
 		add(TitleLabel);
@@ -43,7 +43,7 @@ public class User_Category extends JFrame {
     	LogoutPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	LogoutPanel.setBounds(10, 600, 1045, 70);
 		
-    	JButton LogoutBtn = new JButton("·Î±×¾Æ¿ô");
+    	JButton LogoutBtn = new JButton("ë¡œê·¸ì•„ì›ƒ");
     	LogoutBtn.setPreferredSize(new Dimension(100, 50));
     	LogoutPanel.add(LogoutBtn);
     	
@@ -71,7 +71,7 @@ public class User_Category extends JFrame {
 
         setVisible(true);
         
-		//////////////////// µ¿Àû »ı¼º ¹× »èÁ¦ ¹öÆ°µé ////////////////////
+		//////////////////// ë™ì  ìƒì„± ë° ì‚­ì œ ë²„íŠ¼ë“¤ ////////////////////
         JButton btn[] = new JButton[5];
         for (int i = 0; i < 5; i++) {
         	btn[i] = new JButton();
@@ -82,12 +82,12 @@ public class User_Category extends JFrame {
         	RemoveBtn[i] = new JButton();
         }
         
-		//////////////////// ¹öÆ° ¾×¼Ç ////////////////////
+		//////////////////// ë²„íŠ¼ ì•¡ì…˜ ////////////////////
         AddBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane popup = new JOptionPane();
-				String CatName = popup.showInputDialog("Ãß°¡ÇÒ Ä«Å×°í¸® ÀÌ¸§ ÀÔ·Â");
+				String CatName = popup.showInputDialog("ì¶”ê°€í•  ì¹´í…Œê³ ë¦¬ ì´ë¦„ ì…ë ¥");
 				if (CatName != null) {
 					btn[idx].setText(CatName);
 					btn[idx].setPreferredSize(new Dimension(150, 150));
@@ -137,6 +137,9 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[0].getText());
+			    name = btn[0].getText();
+				dispose();
+				MainFrame frame = new MainFrame();
 			}
 		});
         
@@ -144,6 +147,9 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[1].getText());
+			    name = btn[1].getText();
+				dispose();
+				MainFrame frame = new MainFrame();
 			}
 		});
 
@@ -151,6 +157,9 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[2].getText());
+			    name = btn[2].getText();
+				dispose();
+				MainFrame frame = new MainFrame();
 			}
 		});
         
@@ -158,6 +167,9 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[3].getText());
+			    name = btn[3].getText();
+				dispose();
+				MainFrame frame = new MainFrame();
 			}
 		});
         
@@ -165,6 +177,9 @@ public class User_Category extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, btn[4].getText());
+			    name = btn[4].getText();
+				dispose();
+				MainFrame frame = new MainFrame();
 			}
 		});
 	}
