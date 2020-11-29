@@ -1,60 +1,49 @@
+import GUI.LoginFrame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*; // import JDBC package
 
-import GUI.LoginFrame;
-
 public class start {
-	
 	public static final String URL = "jdbc:postgresql://127.0.0.1:5432/HealthCareSW";
 	public static final String USER_ID ="postgres";
 	public static final String USER_PASSWD ="0001"; // 자신의 DB 비밀번호를 입력하세요 
 	
 	public static void main(String[] args) {
-		
 		Connection conn = null; // Connection object
 		Statement stmt = null;	// Statement object
 		
-		
 		System.out.println("-------- PostgreSQL"+"JDBC Connection");
 		
-		try {		// Load a JDBC driver for PostgreSQL DBMS
+		try {	// Load a JDBC driver for PostgreSQL DBMS
 			Class.forName("org.postgresql.Driver");
-			// Get a Connection object 
+				// Get a Connection object 
 			System.out.println("Success!");
-		}catch(ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) {
 			System.out.println("Where is your PostgreSQL JDBC Driver?"
 		+ "Include in your library path!");
 			System.err.println("error = " + e.getMessage());
 			System.exit(1);
 		}
 		System.out.println("PostgreSQL JDBC Driver Registered!");
+		
 		// Make a connection
 		try{
 			conn = DriverManager.getConnection(//"jdbc:postgresql://127.0.0.1:5432/HealthCareSW", "postgres","password"
-					URL, USER_ID,
-					USER_PASSWD); 
-		}catch(SQLException ex) {
+					URL, USER_ID, USER_PASSWD); 
+		} catch(SQLException ex) {
 			System.err.println("Cannot get a connection: " + ex.getMessage());
 			System.exit(1);
-			return ;
+			return;
 		}
-		
-		
-		
 		
 		createTable(conn, stmt);
 		
-		LoginFrame frame = new LoginFrame(conn, stmt);			////////////// loginFrame 
-		
-		
-		
+		LoginFrame frame = new LoginFrame(conn, stmt);	// loginFrame 
 	}
 	
 	public static void createTable(Connection conn, Statement stmt) {
-		// Fill out your code.
 		String sql = ""; // an SQL statement
 		String table_parsing = "";	// 테이블 String에서 $값을 없앤 결과를 담을 변수 
 		String value = "";	// txt 파일에서 읽어들인 값을 저장할 변수 
@@ -192,7 +181,7 @@ public class start {
 			conn.commit();			
 			}
 
-		}catch(SQLException ex2) {
+		} catch(SQLException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());
 			System.exit(1);
 		}
@@ -205,5 +194,4 @@ public class start {
 		}
 		return false;
 	}
-	
 }
