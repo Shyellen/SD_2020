@@ -1,0 +1,28 @@
+<LoginFrame.java>
+--------------------------------------------------------------
+SELECT Id, Pw FROM PEOPLE as p
+WHERE p.Id = Id and p.Pw = Pw
+
+SELECT Type FROM People WHERE Id=Id
+
+--------------------------------------------------------------
+<JoinFrame.java>
+
+select Id from PEOPLE as p
+where p.Id = values[0] or p.name = values[2]
+
+INSERT INTO people(id, pw, name, sex, birth, phone, type)
+VALUES ( values[0], values[1], values[2], values[3], values[4],
+         values[5], values[6])
+
+---------------------------------------------------------------
+<User_Categort.java>
+
+SELECT COUNT(*) FROM CMAKE WHERE Uid = Id
+
+SELECT Cname FROM Category
+WHERE Cnum = (SELECT Cnum FROM Cmake WHERE Uid=Id)
+
+SELECT MAX(cnum) FROM category
+
+---------------------------------------------------------------

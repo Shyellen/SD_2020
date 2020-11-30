@@ -1,10 +1,11 @@
 ﻿CREATE TABLE PEOPLE(
+    Id character varying(25) NOT NULL,
+	pw character varying(25) NOT NULL,
 	Name character varying(25) NOT NULL,
-	Id character varying(25) NOT NULL,
-	pw character varying(25) NOT NULL, 
 	Sex  character varying(8) check (Sex in ('남','여')),
-	Type character varying(5),
+	Phone character varying(15),
 	Birth Date,
+	Type character varying(7) NOT NULL,
 primary key(ID)
 );
 CREATE TABLE CATEGORY(
