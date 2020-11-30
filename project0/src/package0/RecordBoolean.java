@@ -6,14 +6,15 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 @SuppressWarnings("serial")
-public class BooleanRecord extends JFrame {	
+public class RecordBoolean extends JFrame {	
 	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
 	
-	public BooleanRecord() {		
-		setBounds(550, 150, 400, 75);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+	public RecordBoolean() {	
 		setTitle("Write Record");
+		setSize(400, 75);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Container Container = getContentPane();
 		Container.setLayout(new FlowLayout());
@@ -35,12 +36,17 @@ public class BooleanRecord extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (RadioButton0.isSelected() == true) {
 					System.out.printf("Yes\n");
+					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
+					dispose();
+				}
+				else if (RadioButton1.isSelected() == true) {
+					System.out.printf("No\n");
+					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
+					dispose();
 				}
 				else {
-					System.out.printf("No\n");
+					AlertRecord AlertRecord = new AlertRecord("You should select one of yes or no.");
 				}
-				
-				Recorded Recorded = new Recorded();
 			}
 		});
 		
@@ -54,6 +60,6 @@ public class BooleanRecord extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		BooleanRecord BooleanRecord = new BooleanRecord();
+		RecordBoolean RecordBoolean = new RecordBoolean();
 	}
 }

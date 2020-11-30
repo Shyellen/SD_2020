@@ -6,15 +6,16 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 @SuppressWarnings("serial")
-public class TextRecord extends JFrame {	
+public class RecordText extends JFrame {	
 	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
 	
-	public TextRecord() {	
+	public RecordText() {	
 		JFrame Frame = new JFrame("Write Record");
-		Frame.setBounds(550, 150, 414, 493);
-		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Frame.setLayout(null);
+		Frame.setSize(414, 493);
+		Frame.setLocationRelativeTo(null);		
 		Frame.setResizable(false);
+		Frame.setLayout(null);
+		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel Panel0 = new JPanel();			
 		Panel0.setBounds(0, 0, 400, 500);
@@ -37,8 +38,15 @@ public class TextRecord extends JFrame {
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				String String = TextArea.getText();
-				System.out.printf("%s\n", String);
-				Recorded Recorded = new Recorded();
+				
+				if (String.length() > 0) {
+					System.out.printf("%s\n", String);
+					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
+					Frame.dispose();
+				}
+				else {
+					AlertRecord AlertRecord = new AlertRecord("You should input at least one character.");
+				}
 			}
 		});
 		
@@ -52,6 +60,6 @@ public class TextRecord extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		TextRecord TextRecord = new TextRecord();
+		RecordText RecordText = new RecordText();
 	}
 }

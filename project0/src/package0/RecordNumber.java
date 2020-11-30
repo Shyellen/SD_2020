@@ -6,15 +6,17 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 @SuppressWarnings("serial")
-public class NumberRecord extends JFrame {	
+public class RecordNumber extends JFrame {	
 	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
 	
-	public NumberRecord() {	
+	public RecordNumber() {	
 		JFrame Frame = new JFrame("Write Record");
 		Frame.setBounds(550, 150, 315, 188);
-		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Frame.setLayout(null);
+		Frame.setSize(315, 188);
+		Frame.setLocationRelativeTo(null);
 		Frame.setResizable(false);
+		Frame.setLayout(null);
+		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel Panel0 = new JPanel();
 		Panel0.setBounds(0, 0, 300, 150);
@@ -50,7 +52,11 @@ public class NumberRecord extends JFrame {
 				if (String.length() > 0) {
 					int i0 = Integer.parseInt(String);
 					System.out.printf("%d\n", i0);
-					Recorded Recorded = new Recorded();
+					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
+					Frame.dispose();
+				}
+				else {
+					AlertRecord AlertRecord = new AlertRecord("<html>You should input a number greater than<br>or equal to 0.<html>");
 				}
 			}
 		});
@@ -65,6 +71,6 @@ public class NumberRecord extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		NumberRecord NumberRecord = new NumberRecord();
+		RecordNumber RecordNumber = new RecordNumber();
 	}
 }
