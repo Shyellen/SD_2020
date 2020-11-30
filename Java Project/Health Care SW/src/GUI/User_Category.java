@@ -233,7 +233,7 @@ public class User_Category extends JFrame implements ActionListener {
 			rs = stmt.executeQuery(sql);
 			int i = 0;
 			while(rs.next()) {
-				DBname[i] = (String) rs.getString(i+1);
+				DBname[i++] = (String) rs.getString(1);
 			}
 			rs.close();
 		}
