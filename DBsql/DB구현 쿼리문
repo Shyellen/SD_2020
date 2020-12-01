@@ -30,4 +30,10 @@ INSERT INTO category(cnum, cname) VALUES (Cnum, Cname)
 INSERT INTO cmake(Uid, Cnum) VALUES (Id, Cnum)
 
 ---------------------------------------------------------------
+<PAYMENT>
 
+UPDATE PAYMENT SET payTF = 1
+WHERE UID = "+ ID +";
+
+UPDATE PAYMENT SET payTF = 1
+WHERE EID = "+ ID +";
