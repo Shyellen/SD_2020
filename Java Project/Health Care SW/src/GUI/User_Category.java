@@ -1,13 +1,13 @@
 package GUI;
 
+import PROCESS.CategoryProcess;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import java.sql.*; // import JDBC package
 
-public class User_Category extends JFrame implements ActionListener {
+public class User_Category extends JFrame {
 	private JButton InsertBtn;
 	private JButton DeleteBtn;
 	
@@ -23,14 +23,17 @@ public class User_Category extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		setLayout(null);
 		
-		//////////////////// Title Label ////////////////////
+		idx = CategoryProcess.checkCatCnt(conn, stmt, Id);
+    	System.out.println("카테고리 수: "+idx);
+		
+		//////////////////////////////////////// Title Label
 		JLabel TitleLabel = new JLabel("카테고리");
 		Font f1 = new Font("돋움", Font.BOLD, 50);
 		TitleLabel.setFont(f1);
 		TitleLabel.setBounds(420, 130, 300, 50);
 		add(TitleLabel);
     	
-		//////////////////// Category Button Panel ////////////////////
+		//////////////////////////////////////// Category Button Panel
     	JPanel BtnPanel = new JPanel();
     	BtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	BtnPanel.setBounds(10, 300, 1045, 160);
@@ -41,7 +44,7 @@ public class User_Category extends JFrame implements ActionListener {
     	
     	add(BtnPanel);
     	
-		//////////////////// Logout Button Panel ////////////////////
+    	//////////////////////////////////////// Logout Button Panel
     	JPanel LogoutPanel = new JPanel();
     	LogoutPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	LogoutPanel.setBounds(10, 600, 1045, 70);
@@ -52,7 +55,7 @@ public class User_Category extends JFrame implements ActionListener {
     	
     	add(LogoutPanel);
     	
-		//////////////////// Delete Button Panel ////////////////////
+    	//////////////////////////////////////// Delete Button Panel
     	JPanel DeletePanel = new JPanel();
     	DeletePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	DeletePanel.setBounds(10, 455, 1045, 180);
@@ -64,7 +67,7 @@ public class User_Category extends JFrame implements ActionListener {
     	add(DeletePanel);
     	DeletePanel.setVisible(false);
     	
-		//////////////////// Start Deletion Button ////////////////////
+    	//////////////////////////////////////// Start Deletion Button
     	JButton DeleteBtn = new JButton("-");
     	if (idx == 0) {
     		DeleteBtn.setEnabled(false);
@@ -72,18 +75,16 @@ public class User_Category extends JFrame implements ActionListener {
     	DeleteBtn.setBounds(945, 250, 50, 50);
     	add(DeleteBtn);
         
-		//////////////////// 동적 생성 및 삭제 버튼들 ////////////////////
+    	//////////////////////////////////////// 동적 생성 및 삭제 버튼들
     	JButton btn[] = new JButton[5];
     	for (int i = 0; i < 5; i++)
     		btn[i] = new JButton();
     	
-    	idx = checkCatCnt(conn, stmt, Id);
-    	System.out.println("카테고리 수: "+idx);
-    	
     	if (idx > 0) {
-    		String name[] = checkCatCname(conn, stmt, Id, idx);
+    		String name[] = CategoryProcess.checkCatCname(conn, stmt, Id, idx);
     		for (int i=0; i < idx; i++) {
     			btn[i].setText(name[i]);
+    			btn[i].setPreferredSize(new Dimension(150, 150));
     			BtnPanel.add(btn[i]);
     		}
         }
@@ -102,7 +103,7 @@ public class User_Category extends JFrame implements ActionListener {
 				JOptionPane popup = new JOptionPane();
 				String CatName = popup.showInputDialog("추가할 카테고리 이름 입력(2글자 이상)");
 				if(CatName.length() >= 2) {
-					insertCat(conn, stmt, Id, CatName);
+					CategoryProcess.insertCat(conn, stmt, Id, CatName);
 					btn[idx].setText(CatName);
 					btn[idx].setPreferredSize(new Dimension(150, 150));
 					BtnPanel.add(btn[idx]);
@@ -196,93 +197,5 @@ public class User_Category extends JFrame implements ActionListener {
 				MainFrame frame = new MainFrame();
 			}
 		});
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-	
-	public static int checkCatCnt(Connection conn, Statement stmt, String Id) {	// 해당 ID로 생성된 카테고리 수를 확인한다.
-		ResultSet rs = null;
-		String DBcnt = "";
-		try {
-			String sql = "SELECT COUNT(*) FROM CMAKE WHERE Uid = '"+Id+"'";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				DBcnt = rs.getString(1);
-			}
-			rs.close();
-		}
-		catch (SQLException e) {
-			System.err.println("sql error = " + e.getMessage());
-			System.out.println("error");
-			e.printStackTrace();
-		}
-		return Integer.parseInt(DBcnt);
-	}
-	
-	public static String[] checkCatCname(Connection conn, Statement stmt, String Id, int cnt) { // 해당 ID로 생성된 카테고리 이름을 확인한다.
-		ResultSet rs = null;
-		String[] DBname = new String[cnt];
-		try {
-			String sql = "SELECT Cname FROM Category"
-					+ " WHERE Cnum = (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			int i = 0;
-			while(rs.next()) {
-				DBname[i++] = (String) rs.getString(1);
-			}
-			rs.close();
-		}
-		catch (SQLException e) {
-			System.err.println("sql error = " + e.getMessage());
-			System.out.println("error");
-			e.printStackTrace();
-		}
-		return DBname;
-	}
-	
-	public static int insertCat(Connection conn, Statement stmt, String Id, String name) { // 새로운 카테고리를 생성해 넣는다.
-		ResultSet rs = null;
-		String max = "";
-		int num = 0;
-		
-		try {
-			String sql;
-			sql = "SELECT MAX(cnum) FROM category";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while(rs.next())
-				max = rs.getString(1);
-			rs.close();
-		} catch(SQLException ex2) {
-			System.err.println("sql error = " + ex2.getMessage());
-			System.exit(1);
-		}
-		
-		System.out.println(max);
-		/*
-		
-			
-			//else
-			//	num = Integer.parseInt(max) + 1;
-			//System.out.println(num);
-			/*
-			sql2 = "INSERT INTO category(cnum, cname) VALUES ("+num+", " + name+")";
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql2);
-			System.out.println("Row inserted.");
-			conn.commit();
-			
-			sql3 = "INSERT INTO cmake(Uid, Cnum) VALUES ("+Id+", " + num+")";
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql3);
-			System.out.println("Row inserted.");
-			conn.commit();
-			*/
-		return 1;
 	}
 }
