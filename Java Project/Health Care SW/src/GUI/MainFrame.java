@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private boolean payTF = false;
 
-	public MainFrame() {
+	public MainFrame(Connection conn, Statement stmt, String ID) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
@@ -132,7 +132,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 int result = JOptionPane.showConfirmDialog(null, "결제하시겠습니까?", "PAYMENT", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION) {
-                	payTF = true;
+                	//Payment.paymentRequest(conn,stmt,ID,);
                 	PaymentBtn.setEnabled(!payTF);
                 	JOptionPane.showMessageDialog(null, "결제완료");
                 }

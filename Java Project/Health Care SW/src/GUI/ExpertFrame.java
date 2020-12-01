@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
 import java.sql.*; // import JDBC package
 
 
@@ -117,6 +118,22 @@ public class ExpertFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				//User_Category frame = new User_Category();
+			}
+        });
+		
+		PaymentBtn.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 int result = JOptionPane.showConfirmDialog(null, "결제하시겠습니까?", "PAYMENT", JOptionPane.YES_NO_OPTION);
+	                if(result == JOptionPane.YES_OPTION) {
+	                	payTF = true;
+	                	PaymentBtn.setEnabled(!payTF);
+	                	JOptionPane.showMessageDialog(null, "결제완료");
+	                }
+	                else {
+	                	JOptionPane.showMessageDialog(null, "결제취소");
+	                }
 				//User_Category frame = new User_Category();
 			}
         });

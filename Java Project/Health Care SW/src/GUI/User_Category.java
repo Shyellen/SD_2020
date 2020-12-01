@@ -10,10 +10,12 @@ import java.sql.*; // import JDBC package
 public class User_Category extends JFrame {
 	private JButton InsertBtn;
 	private JButton DeleteBtn;
+	private JPanel contentPane;
 	
 	private static int idx = 0;
 	private static boolean delete = false;
 	public static String name=null;
+	private boolean payTF = false;
 	
 	public User_Category(Connection conn, Statement stmt, String Id) {
 		setTitle("Self Care SW");
@@ -54,6 +56,18 @@ public class User_Category extends JFrame {
     	LogoutPanel.add(LogoutBtn);
     	
     	add(LogoutPanel);
+    	
+    	////////////////////////////광고 출력 패널 ////////////////////////////
+    	JPanel payPanel = new JPanel();
+    	payPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+    	payPanel.setBounds(400, 600, 1045, 70);
+    	
+    	JButton PaymentBtn = new JButton("결제하기");
+    	PaymentBtn.setEnabled(!payTF);
+    	PaymentBtn.setPreferredSize(new Dimension(100, 50));
+    	payPanel.add(PaymentBtn);
+    	
+    	add(payPanel);
     	
     	//////////////////////////////////////// Delete Button Panel
     	JPanel DeletePanel = new JPanel();
