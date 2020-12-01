@@ -1,0 +1,74 @@
+CREATE TABLE PEOPLE(
+   	Id character varying(25) NOT NULL,
+	Pw character varying(25) NOT NULL,
+	Name character varying(25) NOT NULL,
+	Sex  character varying(8) check (Sex in ('남','여')),
+	Phone character varying(15),
+	Birth Date,
+	Type character varying(7) NOT NULL,
+primary key(ID)
+);
+CREATE TABLE CATEGORY(
+	Cnum integer,
+	Cname character varying(30),
+primary key(Cnum)
+);
+CREATE TABLE EVENT(
+	Enum integer,
+	Eame character varying(30),
+	Etype character varying(5),
+primary key(Enum)
+);
+CREATE TABLE USER_DATA(
+	Uindex integer,
+	Date Date,
+	Detail text,
+primary key(Uindex)
+);
+CREATE TABLE EXPERT_DATA(
+	Eindex integer,
+	EComment text, 
+	Emergency character varying(2)check (Emergency in ('1','0')),
+primary key(Eindex)
+);
+CREATE TABLE PAYMENT(
+	Uid character varying(25) NOT NULL,
+	Eid character varying(25) NOT NULL,
+	PayTF character varying(2) check (payTF in ('1','0')),
+	primary key(Uid, Eid)
+);
+CREATE TABLE SEND(
+	Uindex integer,
+	Eindex integer,
+	Ucomment text,
+primary key(Uindex, Eindex));
+CREATE TABLE CMAKE(\n" + 
+	Uid character varying(25) NOT NULL,
+	Cnum integer,
+primary key(Uid, Cnum)
+);
+CREATE TABLE EMAKE(
+	Uid character varying(25) NOT NULL,
+	Enum integer,
+primary key(Uid, Enum)
+);
+CREATE TABLE CRECORD(
+	Cnum integer,
+	Uindex integer,
+primary key(Cnum, Uindex)
+);
+CREATE TABLE ERECORD(
+	Enum integer,
+	Uindex integer,
+primary key(Enum, Uindex)
+);
+CREATE TABLE MANAGE(
+	Uid character varying(25) NOT NULL,
+	Uindex integer,
+primary key(Uid, Uindex) 
+);
+CREATE TABLE WRITE(
+	Eid character varying(25) NOT NULL,
+	Eindex integer,
+primary key(Eid, Eindex)
+);

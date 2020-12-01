@@ -25,4 +25,9 @@ WHERE Cnum = (SELECT Cnum FROM Cmake WHERE Uid=Id)
 
 SELECT MAX(cnum) FROM category
 
+INSERT INTO category(cnum, cname) VALUES (Cnum, Cname)
+
+INSERT INTO cmake(Uid, Cnum) VALUES (Id, Cnum)
+
 ---------------------------------------------------------------
+
