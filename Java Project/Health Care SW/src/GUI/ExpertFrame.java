@@ -15,7 +15,7 @@ public class ExpertFrame extends JFrame {
 	private JPanel contentPane;
 	private boolean payTF = false;
 
-	public ExpertFrame(Connection conn, Statement stmt, String Id) {
+	public ExpertFrame(Connection conn, Statement stmt, String Id, String Type) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);

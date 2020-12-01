@@ -17,7 +17,7 @@ public class User_Category extends JFrame {
 	public static String name=null;
 	private boolean payTF = false;
 	
-	public User_Category(Connection conn, Statement stmt, String Id) {
+	public User_Category(Connection conn, Statement stmt, String Id, String Type) {
 		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
@@ -168,7 +168,7 @@ public class User_Category extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[0].getText());
 				name = btn[0].getText();
 				dispose();
-				MainFrame frame = new MainFrame();
+				MainFrame frame = new MainFrame(conn, stmt, Type);
 			}
 		});
         
@@ -178,7 +178,7 @@ public class User_Category extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[1].getText());
 				name = btn[1].getText();
 				dispose();
-				MainFrame frame = new MainFrame();
+				MainFrame frame = new MainFrame(conn, stmt, Type);
 			}
 		});
 
@@ -188,7 +188,7 @@ public class User_Category extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[2].getText());
 				name = btn[2].getText();
 				dispose();
-				MainFrame frame = new MainFrame();
+				MainFrame frame = new MainFrame(conn, stmt, Type);
 			}
 		});
         
@@ -198,7 +198,7 @@ public class User_Category extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[3].getText());
 				name = btn[3].getText();
 				dispose();
-				MainFrame frame = new MainFrame();
+				MainFrame frame = new MainFrame(conn, stmt, Type);
 			}
 		});
         
@@ -208,7 +208,7 @@ public class User_Category extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[4].getText());
 				name = btn[4].getText();
 				dispose();
-				MainFrame frame = new MainFrame();
+				MainFrame frame = new MainFrame(conn, stmt, Type);
 			}
 		});
 	}
