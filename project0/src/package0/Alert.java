@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class AlertRecord {
-	public AlertRecord(String String) {
-		JFrame Frame = new JFrame("Record");
+public class Alert {
+	public Alert(String Title, String Text) {
+		JFrame Frame = new JFrame(Title);
 		Frame.setSize(315, 200);
 		Frame.setLocationRelativeTo(null);
 		Frame.setResizable(false);
@@ -15,7 +15,7 @@ public class AlertRecord {
 		
 		Frame.getContentPane().setLayout(null);
 		
-		JLabel Label = new JLabel(String, JLabel.CENTER);
+		JLabel Label = new JLabel(Text, JLabel.CENTER);
 		Label.setBounds(0, 0, 300, 100);
 		Frame.getContentPane().add(Label);
 		
@@ -33,6 +33,6 @@ public class AlertRecord {
 	}
 	
 	public static void main(String[] args) {
-		AlertRecord AlertRecord = new AlertRecord("Hello, World!");
+		Alert Alert = new Alert("Title", "Hello, World!");
 	}
 }
