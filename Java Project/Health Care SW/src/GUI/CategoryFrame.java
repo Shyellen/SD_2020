@@ -124,14 +124,14 @@ public class CategoryFrame extends JFrame {
 					RemoveBtn[idx].setText("Remove");
 					RemoveBtn[idx].setPreferredSize(new Dimension(150, 30));
 					DeletePanel.add(RemoveBtn[idx]);
-					idx = idx + 1;
-					setVisible(true);
+					idx = idx + 1;					
 					if (idx == 5) {
 						InsertBtn.setEnabled(false);
 					}
 					if (idx > 0) {
 						DeleteBtn.setEnabled(true);
 					}
+					setVisible(true);
 				}
 			}
 		});
