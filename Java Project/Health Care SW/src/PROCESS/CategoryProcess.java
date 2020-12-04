@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CategoryProcess {
+	
 	public static int checkCatCnt(Connection conn, Statement stmt, String Id) {	// 해당 ID로 생성된 카테고리 수를 확인한다.
 		ResultSet rs = null;
 		String DBcnt = "";
