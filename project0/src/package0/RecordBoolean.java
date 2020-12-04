@@ -7,14 +7,20 @@ import javax.swing.border.*;
 
 @SuppressWarnings("serial")
 public class RecordBoolean extends JFrame {	
-	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
+	private boolean Datum;
 	
-	public RecordBoolean() {	
-		setTitle("Write Record");
-		setSize(400, 75);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public RecordBoolean() {
+		JFrame Frame0 = new JFrame("Write Record");
+		Frame0.setSize(215, 163);
+		Frame0.setLocationRelativeTo(null);
+		Frame0.setResizable(false);
+		Frame0.setLayout(null);
+		Frame0.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel Panel0 = new JPanel();
+		Panel0.setBounds(0, 25, 200, 50);
+		Panel0.setLayout(new FlowLayout());
+		Frame0.add(Panel0);
 		
 		Container Container = getContentPane();
 		Container.setLayout(new FlowLayout());
@@ -24,39 +30,50 @@ public class RecordBoolean extends JFrame {
 		ButtonGroup ButtonGroup = new ButtonGroup();
 		ButtonGroup.add(RadioButton0);
 		ButtonGroup.add(RadioButton1);
-		Container.add(RadioButton0);
-		Container.add(RadioButton1);
+		Panel0.add(RadioButton0);
+		Panel0.add(RadioButton1);
 		
-		JButton Button0 = new JButton("Finish");
+		JPanel Panel1 = new JPanel();
+		Panel1.setBounds(0, 75, 200, 50);
+		Panel1.setLayout(null);
+		Frame0.add(Panel1);	
+		
+		JButton Button0 = new JButton("Save");
 		JButton Button1 = new JButton("Cancel");
-		add(Button0);
-		add(Button1);		
+		Panel1.add(Button0);
+		Panel1.add(Button1);
+		Button0.setBounds(15, 10, 80, 30);
+		Button1.setBounds(105, 10, 80, 30);	
 		
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				if (RadioButton0.isSelected() == true) {
-					System.out.printf("Yes\n");
-					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
-					dispose();
+					Datum = true;
+					Alert Alert = new Alert("", "Your record has successfully saved.");
+					Frame0.dispose();
 				}
 				else if (RadioButton1.isSelected() == true) {
-					System.out.printf("No\n");
-					AlertRecord AlertRecord = new AlertRecord("Your record has successfully saved.");
-					dispose();
+					Datum = false;
+					Alert Alert = new Alert("", "Your record has successfully saved.");
+					Frame0.dispose();
 				}
 				else {
-					AlertRecord AlertRecord = new AlertRecord("You should select one of yes or no.");
+					Alert Alert = new Alert("Error", "You should select one of yes or no.");
 				}
 			}
 		});
 		
 		Button1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				Frame0.dispose();
 			}
 		});
 		
-		setVisible(true);
+		Frame0.setVisible(true);
+	}	
+	
+	public boolean GetDatum() {		
+		return Datum;
 	}
 	
 	public static void main(String[] args) {
