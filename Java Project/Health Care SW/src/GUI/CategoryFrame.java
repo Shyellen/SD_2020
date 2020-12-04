@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.sql.*; // import JDBC package
 
-public class User_Category extends JFrame {
+public class CategoryFrame extends JFrame {
 	private JButton InsertBtn;
 	private JButton DeleteBtn;
 	private JPanel contentPane;
@@ -17,7 +17,7 @@ public class User_Category extends JFrame {
 	public static String name=null;
 	private boolean payTF = false;
 	
-	public User_Category(Connection conn, Statement stmt, String Id) {
+	public CategoryFrame(Connection conn, Statement stmt, String Id) {
 		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);

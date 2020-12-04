@@ -9,12 +9,12 @@ import javax.swing.table.*;
 import java.sql.*; // import JDBC package
 
 
-public class MainFrame extends JFrame {
+public class UserFrame extends JFrame {
 
 	private JPanel contentPane;
 	private boolean payTF = false;
 
-	public MainFrame(Connection conn, Statement stmt, String ID) {
+	public UserFrame(Connection conn, Statement stmt, String ID) {
 		setTitle("Health Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
