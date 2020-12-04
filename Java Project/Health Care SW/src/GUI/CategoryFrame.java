@@ -25,7 +25,7 @@ public class CategoryFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(null);
 		
-		idx = CategoryProcess.checkCatCnt(conn, stmt, Id);
+		idx = CategoryProcess.checkCatCnt(Id);
     	System.out.println("카테고리 수: "+idx);
 		
 		//////////////////////////////////////// Title Label
@@ -95,7 +95,7 @@ public class CategoryFrame extends JFrame {
     		btn[i] = new JButton();
     	
     	if (idx > 0) {
-    		String name[] = CategoryProcess.checkCatCname(conn, stmt, Id, idx);
+    		String name[] = CategoryProcess.checkCatCname(Id, idx);
     		for (int i=0; i < idx; i++) {
     			btn[i].setText(name[i]);
     			btn[i].setPreferredSize(new Dimension(150, 150));
@@ -117,7 +117,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane popup = new JOptionPane();
 				String CatName = popup.showInputDialog("추가할 카테고리 이름 입력(2글자 이상)");
 				if(CatName.length() >= 2) {
-					CategoryProcess.insertCat(conn, stmt, Id, CatName);
+					CategoryProcess.insertCat(Id, CatName);
 					btn[idx].setText(CatName);
 					btn[idx].setPreferredSize(new Dimension(150, 150));
 					BtnPanel.add(btn[idx]);
@@ -168,7 +168,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[0].getText());
 				name = btn[0].getText();
 				dispose();
-				MainFrame frame = new MainFrame(conn, stmt, Id);
+				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
         
@@ -178,7 +178,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[1].getText());
 				name = btn[1].getText();
 				dispose();
-				MainFrame frame = new MainFrame(conn, stmt, Id);
+				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
 
@@ -188,7 +188,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[2].getText());
 				name = btn[2].getText();
 				dispose();
-				MainFrame frame = new MainFrame(conn, stmt, Id);
+				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
         
@@ -198,7 +198,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[3].getText());
 				name = btn[3].getText();
 				dispose();
-				MainFrame frame = new MainFrame(conn, stmt, Id);
+				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
         
@@ -208,7 +208,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, btn[4].getText());
 				name = btn[4].getText();
 				dispose();
-				MainFrame frame = new MainFrame(conn, stmt, Id);
+				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
 	}

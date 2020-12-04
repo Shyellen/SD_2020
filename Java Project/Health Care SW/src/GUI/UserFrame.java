@@ -31,7 +31,7 @@ public class UserFrame extends JFrame {
 		//////////////////////////// 카테고리 이름 출력 패널  ////////////////////////////
 		JPanel northPanel = new JPanel();
 		contentPane.add(northPanel, BorderLayout.NORTH);
-		JLabel catName = new JLabel(User_Category.name);
+		JLabel catName = new JLabel(CategoryFrame.name);
 		catName.setFont(new Font("굴림", Font.BOLD, 50));
 		catName.setBackground(new Color(204, 255, 255));
 		northPanel.add(catName);

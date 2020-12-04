@@ -9,11 +9,12 @@ import java.sql.*; // import JDBC package
 public class start {
 	public static final String URL = "jdbc:postgresql://127.0.0.1:5432/HealthCareSW";
 	public static final String USER_ID ="postgres";
-	public static final String USER_PASSWD ="0001"; // 자신의 DB 비밀번호를 입력하세요 
+	public static final String USER_PASSWD ="0001"; // 자신의 DB 비밀번호를 입력하세요
+	
+	public static Connection conn = null; // Connection object
+	public static Statement stmt = null;	// Statement object 
 	
 	public static void main(String[] args) {
-		Connection conn = null; // Connection object
-		Statement stmt = null;	// Statement object
 		
 		System.out.println("-------- PostgreSQL"+"JDBC Connection");
 		
