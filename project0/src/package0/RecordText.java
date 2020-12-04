@@ -4,13 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.util.Calendar;
 
 @SuppressWarnings("serial")
 public class RecordText extends JFrame {
-	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
-	private String Datum;
+	public String username, datum;
+	public int year, month, date, hour, minute, second;
 	
-	public RecordText() {	
+	public RecordText(String Username) {
+		EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
+		Calendar Calendar0 = Calendar.getInstance();
+		
 		JFrame Frame0 = new JFrame("Write Record");
 		Frame0.setSize(414, 493);
 		Frame0.setLocationRelativeTo(null);		
@@ -41,12 +45,20 @@ public class RecordText extends JFrame {
 				String String = TextArea.getText();
 				
 				if (String.length() > 0) {
-					Datum = String;
-					Alert Alert = new Alert("Error", "Your record has successfully saved.");
+					username = Username;
+					year = Calendar0.get(Calendar.YEAR);
+					month = Calendar0.get(Calendar.MONTH) + 1;
+					date = Calendar0.get(Calendar.DAY_OF_MONTH);
+					hour = Calendar0.get(Calendar.HOUR_OF_DAY);
+					minute = Calendar0.get(Calendar.MINUTE);
+					second = Calendar0.get(Calendar.SECOND);
+					datum = String;
+					
+					new Alert("Error", "Your record has successfully saved.");
 					Frame0.dispose();
 				}
 				else {
-					Alert Alert = new Alert("Error", "You should input at least one character.");
+					new Alert("Error", "You should input at least one character.");
 				}
 			}
 		});
@@ -60,11 +72,7 @@ public class RecordText extends JFrame {
 		Frame0.setVisible(true);
 	}
 	
-	public String GetDatum() {
-		return Datum;
-	}
-	
 	public static void main(String[] args) {
-		RecordText RecordText = new RecordText();
+		RecordText RecordText = new RecordText("");
 	}
 }

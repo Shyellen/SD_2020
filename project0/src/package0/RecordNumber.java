@@ -4,13 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.util.Calendar;
 
 @SuppressWarnings("serial")
 public class RecordNumber extends JFrame {	
-	private EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
-	private int Datum;
+	public String username;
+	public int year, month, date, hour, minute, second, datum;
 	
-	public RecordNumber() {	
+	public RecordNumber(String Username) {
+		EtchedBorder Border = new EtchedBorder(EtchedBorder.LOWERED);
+		Calendar Calendar0 = Calendar.getInstance();
+		
 		JFrame Frame0 = new JFrame("Write Record");
 		Frame0.setSize(315, 188);
 		Frame0.setLocationRelativeTo(null);
@@ -50,12 +54,20 @@ public class RecordNumber extends JFrame {
 				String String = TextArea.getText();
 				
 				if (String.length() > 0) {
-					Datum = Integer.parseInt(String);
-					Alert Alert = new Alert("", "Your record has successfully saved.");
+					username = Username;
+					year = Calendar0.get(Calendar.YEAR);
+					month = Calendar0.get(Calendar.MONTH) + 1;
+					date = Calendar0.get(Calendar.DAY_OF_MONTH);
+					hour = Calendar0.get(Calendar.HOUR_OF_DAY);
+					minute = Calendar0.get(Calendar.MINUTE);
+					second = Calendar0.get(Calendar.SECOND);
+					datum = Integer.parseInt(String);
+					
+					new Alert("", "Your record has successfully saved.");
 					Frame0.dispose();
 				}
 				else {
-					Alert Alert = new Alert("Error", "<html>You should input a number greater than or<br>equal to 0.<html>");
+					new Alert("Error", "<html>You should input a number greater than or<br>equal to 0.<html>");
 				}
 			}
 		});
@@ -69,11 +81,7 @@ public class RecordNumber extends JFrame {
 		Frame0.setVisible(true);
 	}
 	
-	public int GetDatum() {
-		return Datum;
-	}
-	
 	public static void main(String[] args) {
-		RecordNumber RecordNumber = new RecordNumber();
+		RecordNumber RecordNumber = new RecordNumber("");
 	}
 }

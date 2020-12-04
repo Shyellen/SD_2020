@@ -4,12 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.util.Calendar;
 
 @SuppressWarnings("serial")
 public class RecordBoolean extends JFrame {	
-	private boolean Datum;
+	public String username;
+	public int year, month, date, hour, minute, second;
+	public boolean datum;
 	
-	public RecordBoolean() {
+	public RecordBoolean(String Username) {
+		Calendar Calendar0 = Calendar.getInstance();
+		
 		JFrame Frame0 = new JFrame("Write Record");
 		Frame0.setSize(215, 163);
 		Frame0.setLocationRelativeTo(null);
@@ -47,18 +52,28 @@ public class RecordBoolean extends JFrame {
 		
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				if (RadioButton0.isSelected() == true) {
-					Datum = true;
-					Alert Alert = new Alert("", "Your record has successfully saved.");
-					Frame0.dispose();
-				}
-				else if (RadioButton1.isSelected() == true) {
-					Datum = false;
-					Alert Alert = new Alert("", "Your record has successfully saved.");
-					Frame0.dispose();
+				if (RadioButton0.isSelected() == false && RadioButton1.isSelected() == false) {
+					new Alert("Error", "You should select one of yes or no.");
 				}
 				else {
-					Alert Alert = new Alert("Error", "You should select one of yes or no.");
+					username = Username;
+					year = Calendar0.get(Calendar.YEAR);
+					month = Calendar0.get(Calendar.MONTH) + 1;
+					date = Calendar0.get(Calendar.DAY_OF_MONTH);
+					hour = Calendar0.get(Calendar.HOUR_OF_DAY);
+					minute = Calendar0.get(Calendar.MINUTE);
+					second = Calendar0.get(Calendar.SECOND);
+					
+					if (RadioButton0.isSelected() == true) {
+						datum = true;					
+						new Alert("", "Your record has successfully saved.");
+						Frame0.dispose();
+					}
+					else if (RadioButton1.isSelected() == true) {
+						datum = false;
+						new Alert("", "Your record has successfully saved.");
+						Frame0.dispose();
+					}
 				}
 			}
 		});
@@ -70,13 +85,9 @@ public class RecordBoolean extends JFrame {
 		});
 		
 		Frame0.setVisible(true);
-	}	
-	
-	public boolean GetDatum() {		
-		return Datum;
 	}
 	
 	public static void main(String[] args) {
-		RecordBoolean RecordBoolean = new RecordBoolean();
+		RecordBoolean RecordBoolean = new RecordBoolean("");
 	}
 }
