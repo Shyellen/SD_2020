@@ -75,7 +75,7 @@ public class LoginFrame extends JFrame {
 						ExpertFrame frame = new ExpertFrame(conn, stmt, Id);
 					}
 					else {
-						User_Category frame = new User_Category(conn, stmt, Id);
+						CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 					}
 					dispose();
 				}
