@@ -1,3 +1,27 @@
+테이블명은 우리같은 경우에 PEOPLE GATEGORY CMAKE EMAKE EVENT 같은 것들이고
+컬럼명은 PEOPLE를 예로 들면 PEOPLE안에 있는 Id, Pw, Name, Sex, Phone 같은 것들이 PEOPLE의 컬럼임.
+대소문자 구분없이 사용가능함. SELECT 또는 select 둘다 사용가능. 
+
+ <DB에서 값을 조회하기>
+SELECT 컬럼명 FROM 테이블명;
+ -> 기본 구조임.해당 테이블의 해당컬럼의 데이터를 불러옴. 컬럼 전체를 불러오고 싶으면 컬럼명 부분에 '*' 를 넣으면됨.
+
+SELECT 컬럼명 FROM 테이블명 WHERE 컬럼명=값; 
+ -> WHERE 구문은 조건절임. 조건이 없으면 예를들어 SELECT Id FROM PEOPLE; 를 하면 모든 Id들을 다 가져옴.
+
+
+ <DB에 값을 추가/수정/삭제하기>
+INSERT INTO 테이블명 (컬럼명1, 컬럼명2, 컬럼명3) VALUES (값1, 값2, 값3);
+ -> 실제 값을 넣을때 씀. 테이블명에 있는 컬럼명을 입력해야함. 컬럼명과 값의 개수는 동일해야함.
+
+UPDATE 테이블명 SET 컬럼명 = 변경할 값 WHERE 컬럼명=값;
+ -> WHERE절 조건에 해당하는 부분만 값을 변경함.
+
+DELETE from 테이블명 WHERE 컬럼명=값;
+ -> WHERE절 조건에 해당하는 부분만 삭제함.
+
+
+
 <LoginFrame.java>
 --------------------------------------------------------------
 SELECT Id, Pw FROM PEOPLE as p
@@ -5,6 +29,7 @@ WHERE p.Id = Id and p.Pw = Pw
 
 SELECT Type FROM People WHERE Id=Id
 
+// as를 쓰면 현재 쿼리문에서는 PEOPLE를 p로 써도 됨.
 --------------------------------------------------------------
 <JoinFrame.java>
 
@@ -29,6 +54,8 @@ INSERT INTO category(cnum, cname) VALUES (Cnum, Cname)
 
 INSERT INTO cmake(Uid, Cnum) VALUES (Id, Cnum)
 
+// COUNT(*)같은 경우는 조건에 해당하는 값이 몇개 있는지 알려줌 예를들면 Uid=Id인 값이 4개가 있으면
+// 4가 나옴.
 ---------------------------------------------------------------
 <PAYMENT>
 
