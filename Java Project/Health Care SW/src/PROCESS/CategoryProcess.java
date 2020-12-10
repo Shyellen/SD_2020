@@ -5,11 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CategoryProcess {
-	private static Connection conn = start.conn;
-	private static Statement stmt = start.stmt;
-	
 	//////////////////////////////////////// 해당 ID로 생성된 카테고리 수를 확인한다.
-	public static int checkCatCnt(String Id) {	// 
+	public static int checkCatCnt(Connection conn, Statement stmt, String Id) {	// 
 		ResultSet rs = null;
 		String DBcnt = "";
 		try {
@@ -31,7 +28,7 @@ public class CategoryProcess {
 	}
 
 	//////////////////////////////////////// 해당 ID로 생성된 카테고리 이름을 확인한다.
-	public static String[] checkCatCname(String Id, int cnt) {
+	public static String[] checkCatCname(Connection conn, Statement stmt, String Id, int cnt) {
 		ResultSet rs = null;
 		String[] DBname = new String[cnt];
 		
@@ -60,7 +57,7 @@ public class CategoryProcess {
 	}
 	
 	//////////////////////////////////////// 새로운 카테고리를 생성해 넣는다.
-	public static int insertCat(String Id, String Cname) {
+	public static int insertCat(Connection conn, Statement stmt, String Id, String Cname) {
 		ResultSet rs = null;
 		String max = "";
 		int Cnum = 0;

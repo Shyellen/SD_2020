@@ -116,8 +116,7 @@ public class UserFrame extends JFrame {
 		btnBackButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				//User_Category frame = new User_Category();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, ID);
 			}
         });
 		btnAddEvent.addActionListener(new ActionListener() {	

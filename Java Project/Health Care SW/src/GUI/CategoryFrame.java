@@ -25,7 +25,7 @@ public class CategoryFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(null);
 		
-		idx = CategoryProcess.checkCatCnt(Id);
+		idx = CategoryProcess.checkCatCnt(conn, stmt, Id);
     	System.out.println("카테고리 수: "+idx);
 		
 		//////////////////////////////////////// Title Label
@@ -95,7 +95,7 @@ public class CategoryFrame extends JFrame {
     		btn[i] = new JButton();
     	
     	if (idx > 0) {
-    		String name[] = CategoryProcess.checkCatCname(Id, idx);
+    		String name[] = CategoryProcess.checkCatCname(conn, stmt, Id, idx);
     		for (int i=0; i < idx; i++) {
     			btn[i].setText(name[i]);
     			btn[i].setPreferredSize(new Dimension(150, 150));
@@ -117,7 +117,7 @@ public class CategoryFrame extends JFrame {
 				JOptionPane popup = new JOptionPane();
 				String CatName = popup.showInputDialog("추가할 카테고리 이름 입력(2글자 이상)");
 				if(CatName.length() >= 2) {
-					CategoryProcess.insertCat(Id, CatName);
+					CategoryProcess.insertCat(conn, stmt, Id, CatName);
 					btn[idx].setText(CatName);
 					btn[idx].setPreferredSize(new Dimension(150, 150));
 					BtnPanel.add(btn[idx]);
