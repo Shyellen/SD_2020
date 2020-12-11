@@ -82,6 +82,6 @@ public class RecordNumber extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		RecordNumber RecordNumber = new RecordNumber("");
+		new RecordNumber("");
 	}
 }

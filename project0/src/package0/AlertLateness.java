@@ -42,6 +42,6 @@ public class AlertLateness {
 	}
 	
 	public static void main(String[] args) {
-		AlertLateness AlertLateness = new AlertLateness(1);
+		new AlertLateness(0);
 	}
 }

@@ -33,6 +33,6 @@ public class AlertEmergencyCall {
 	}
 	
 	public static void main(String[] args) {
-		AlertEmergencyCall AlertEmergencyCall = new AlertEmergencyCall();
+		new AlertEmergencyCall();
 	}
 }

@@ -44,6 +44,6 @@ public class AlertDeleteData {
 	}
 	
 	public static void main(String[] args) {
-		AlertDeleteData AlertEmergency = new AlertDeleteData();
+		new AlertDeleteData();
 	}
 }

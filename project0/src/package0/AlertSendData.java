@@ -43,6 +43,6 @@ public class AlertSendData {
 	}
 	
 	public static void main(String[] args) {
-		AlertSendData AlertEmergency = new AlertSendData();
+		new AlertSendData();
 	}
 }

@@ -73,6 +73,6 @@ public class RecordText extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		RecordText RecordText = new RecordText("");
+		new RecordText("");
 	}
 }

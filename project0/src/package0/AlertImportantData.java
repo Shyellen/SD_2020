@@ -32,6 +32,6 @@ public class AlertImportantData {
 	}
 	
 	public static void main(String[] args) {
-		AlertImportantData AlertEmergency = new AlertImportantData();
+		new AlertImportantData();
 	}
 }

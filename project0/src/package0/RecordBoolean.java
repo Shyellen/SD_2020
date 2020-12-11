@@ -47,8 +47,8 @@ public class RecordBoolean extends JFrame {
 		JButton Button1 = new JButton("Cancel");
 		Panel1.add(Button0);
 		Panel1.add(Button1);
-		Button0.setBounds(15, 10, 80, 30);
-		Button1.setBounds(105, 10, 80, 30);	
+		Button0.setBounds(17, 10, 75, 30);
+		Button1.setBounds(108, 10, 75, 30);	
 		
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -88,6 +88,6 @@ public class RecordBoolean extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		RecordBoolean RecordBoolean = new RecordBoolean("");
+		new RecordBoolean("");
 	}
 }

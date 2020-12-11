@@ -33,6 +33,6 @@ public class Alert {
 	}
 	
 	public static void main(String[] args) {
-		Alert Alert = new Alert("Title", "Hello, World!");
+		new Alert("Title", "Hello, World!");
 	}
 }
