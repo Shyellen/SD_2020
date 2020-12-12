@@ -9,12 +9,9 @@ import javax.swing.table.*;
 import java.sql.*; // import JDBC package
 import package0.*;
 
-@SuppressWarnings("unused")
 public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private boolean payTF = false;
-	
-	private int i = 0;
 	
 	public MainFrame() {
 		setTitle("Health Care SW");
@@ -91,50 +88,12 @@ public class MainFrame extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(4, 4, 4, 4);
 		
-		Boolean exist[] = new Boolean[99];
-		// JButton Button0[] = new JButton[99];
-		// JButton Button1[] = new JButton[99];
-		// JButton Button2[] = new JButton[99];
-		// JButton Button3[] = new JButton[99];
-		// RecordBoolean RecordBoolean[] = new RecordBoolean("USERNAME")[];
-		// RecordNumber RecordNumber[] = new RecordNumber("USERNAME")[];
-		// RecordText RecordText[] = new RecordText("USERNAME")[];
 		JPanel panel[] = new JPanel[99];
-        for (; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
         	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
         	panel[i].setBackground(Color.ORANGE);
         	panel[i].setPreferredSize(new Dimension(970, 70));
-        	exist[i] = true;
         }
-        
-		btnAddEvent.addActionListener(new ActionListener() {	
-			public void actionPerformed(ActionEvent e) {
-				if (i < 99) {
-		        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		        	panel[i].setBackground(Color.ORANGE);
-		        	panel[i].setPreferredSize(new Dimension(970, 70));
-		        	exist[i] = true;
-		        	i++;
-				}
-				else {
-					new Alert("Error", "You cannot create more than 99 records.");
-				}
-			}
-        });
-		btnDelEvent.addActionListener(new ActionListener() {	
-			public void actionPerformed(ActionEvent e) {
-				if (i > 1) {
-					panel[i] = null;
-					exist[i] = false;
-					i--;
-				}
-				else {
-					new Alert("Error", "There is currently no record to delete.");
-				}
-			}
-        });
-		
-        JButton Button0, Button1, Button2, Button3;
         
         Font f1 = new Font("돋움", Font.BOLD, 20);
         for (int ii = 0; ii < 10; ii++) {
@@ -143,67 +102,10 @@ public class MainFrame extends JFrame {
             panel[ii].add(new JLabel("Name of Event")).setFont(f1);
             Component horizontalStrut6 = Box.createHorizontalStrut(50);
             panel[ii].add(horizontalStrut6);
-            
-            Button0 = new JButton("기록 보기");
-            Button1 = new JButton("기록 추가");
-            Button2 = new JButton("이미지화");
-            Button3 = new JButton("기록 전송");
-            
-            
-    		Button0.addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-    				if (true) {
-    					
-    				}
-    				else {
-    					new Alert("Error", "There is already a record in that location.");
-    				}
-    			}
-            });
-    		Button1.addActionListener(new ActionListener() {	
-    			public void actionPerformed(ActionEvent e) {
-    				if (true) {
-    					new Alert("Error", "There is no record in that location.");
-    				}
-    				else {
-    					SetRecordType SetRecordType = new SetRecordType();
-    					if (SetRecordType.type == 0) {
-    						RecordBoolean RecordBoolean = new RecordBoolean("USERNAME");
-    					}
-    					else if (SetRecordType.type == 1) {
-    						RecordNumber RecordNumber = new RecordNumber("USERNAME");
-    					}
-    					else {
-    						RecordText RecordText = new RecordText("USERNAME");
-    					}
-    				}
-    			}
-            });
-    		Button2.addActionListener(new ActionListener() {	
-    			public void actionPerformed(ActionEvent e) {
-    				if (true) {
-    					
-    				}
-    				else {
-    					new Alert("Error", "There is no record in that location.");
-    				}
-    			}
-            });
-    		Button3.addActionListener(new ActionListener() {	
-    			public void actionPerformed(ActionEvent e) {
-    				if (true) {
-    					new AlertSendData();
-    				}
-    				else {
-    					new Alert("Error", "There is no record in that location.");
-    				}
-    			}
-            });
-            
-            panel[ii].add(Button0);
-            panel[ii].add(Button1);
-            panel[ii].add(Button2);
-            panel[ii].add(Button3);
+            panel[ii].add(new JButton("기록 보기"));
+            panel[ii].add(new JButton("기록 추가"));
+            panel[ii].add(new JButton("기록 이미지"));
+            panel[ii].add(new JButton("전송"));
             
             MainArea.add(panel[ii], gbc);
         }

@@ -77,7 +77,9 @@ public class SetRecordType extends JFrame {
 		
 		Frame0.setVisible(true);
 	}
-	
+	public int GetType() {
+		return type;
+	}
 	public static void main(String[] args) {
 		new SetRecordType();
 	}

@@ -14,7 +14,7 @@ public class AlertSendData {
 		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Frame.getContentPane().setLayout(null);
-		JLabel Label = new JLabel("Do you really want to send these records?", JLabel.CENTER);
+		JLabel Label = new JLabel("Do you really want to send this record?", JLabel.CENTER);
 		Label.setBounds(0, 0, 300, 100);
 		Frame.getContentPane().add(Label);
 		

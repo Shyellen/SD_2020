@@ -6,13 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
+import package0.*;
+
 import java.sql.*; // import JDBC package
 
-
+@SuppressWarnings("unused")
 public class UserFrame extends JFrame {
-
 	private JPanel contentPane;
 	private boolean payTF = false;
+	
+	private int i = 0;
 
 	public UserFrame(Connection conn, Statement stmt, String ID) {
 		setTitle("Health Care SW");
@@ -87,28 +91,146 @@ public class UserFrame extends JFrame {
 		JPanel MainArea = new JPanel(new GridBagLayout());
 		centerPanel.add(new JScrollPane(MainArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(4,4,4,4);
+		gbc.insets = new Insets(4, 4, 4, 4);
 		
-		JPanel panel[] = new JPanel[10];
-        for (int i = 0; i < 10; i++) {
+		Boolean exist[] = new Boolean[99];
+		int types[] = new int[99];
+		JButton Button0[] = new JButton[99];
+		JButton Button1[] = new JButton[99];
+		JButton Button2[] = new JButton[99];
+		JButton Button3[] = new JButton[99];
+		for (i = 0; i < 99; i++) {
+			exist[i] = false;
+			Button0[i] = new JButton("기록 보기");
+			Button1[i] = new JButton("기록 추가");
+			Button2[i] = new JButton("이미지화");
+			Button3[i] = new JButton("기록 전송");
+			
+			Button0[i].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						
+					}
+					else {
+						new Alert("Error", "There is no record at that.");
+					}
+				}
+	        });
+			Button1[i].addActionListener(new ActionListener() {	
+				
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						new Alert("Error", "There is already a record at that.");
+					}
+					else {
+						SetRecordType SetRecordType = new SetRecordType();
+						int type = SetRecordType.GetType();
+						// System.out.println(type);
+						
+						if (false) {
+							
+						}
+						else {
+							if (type == 0) {
+								new RecordBoolean("USERNAME");
+								types[i] = 0;
+							}
+							else if (type == 1) {
+								new RecordNumber("USERNAME");
+								types[i] = 1;
+							}
+							else {
+								new RecordText("USERNAME");
+								types[i] = 2;
+							}
+							exist[i] = true;
+						}
+					}
+				}
+	        });
+			Button2[i].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						
+					}
+					else {
+						new Alert("Error", "There is no record at this.");
+					}
+				}
+	        });
+			Button3[i].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						new AlertSendData();
+					}
+					else {
+						new Alert("Error", "There is no record at this.");
+					}
+				}
+	        });
+		}
+		RecordBoolean RecordBoolean[] = new RecordBoolean[99];
+		RecordNumber RecordNumber[] = new RecordNumber[99];
+		RecordText RecordText[] = new RecordText[99];
+		
+		Font f1 = new Font("돋움", Font.BOLD, 20);
+		JPanel panel[] = new JPanel[99];
+		
+		for (i = 0; i < 3; i++) {
         	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
         	panel[i].setBackground(Color.ORANGE);
         	panel[i].setPreferredSize(new Dimension(970, 70));
-        }
-        Font f1 = new Font("돋움", Font.BOLD, 20);
-        for (int ii=0; ii<10; ii++) {
-            gbc.gridy = ii;
+        	
+            gbc.gridy = i;
             gbc.gridx = 0;
-            panel[ii].add(new JLabel("Name of Event")).setFont(f1);
+            panel[i].add(new JLabel("Name of Event")).setFont(f1);
             Component horizontalStrut6 = Box.createHorizontalStrut(50);
-            panel[ii].add(horizontalStrut6);
-            panel[ii].add(new JButton("기록 보기"));
-            panel[ii].add(new JButton("기록 추가"));
-            panel[ii].add(new JButton("기록 이미지"));
-            panel[ii].add(new JButton("전송"));
+            panel[i].add(horizontalStrut6);
             
-            MainArea.add(panel[ii], gbc);
-        }
+            panel[i].add(Button0[i]);
+            panel[i].add(Button1[i]);
+            panel[i].add(Button2[i]);
+            panel[i].add(Button3[i]);
+            
+            MainArea.add(panel[i], gbc);
+		}
+        
+		btnAddEvent.addActionListener(new ActionListener() {	
+			public void actionPerformed(ActionEvent e) {
+				if (i < 99) {					
+		        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		        	panel[i].setBackground(Color.ORANGE);
+		        	panel[i].setPreferredSize(new Dimension(970, 70));
+		        	
+		            gbc.gridy = i;
+		            gbc.gridx = 0;
+		            panel[i].add(new JLabel("Name of Event")).setFont(f1);
+		            Component horizontalStrut6 = Box.createHorizontalStrut(50);
+		            panel[i].add(horizontalStrut6);
+		            panel[i].add(new JButton("기록 보기"));
+		            panel[i].add(new JButton("기록 추가"));
+		            panel[i].add(new JButton("기록 이미지"));
+		            panel[i].add(new JButton("전송"));
+		            
+		            MainArea.add(panel[i], gbc);
+		        	i++;
+				}
+				else {
+					new Alert("Error", "You cannot create more than 99 records.");
+				}
+			}
+        });
+		btnDelEvent.addActionListener(new ActionListener() {	
+			public void actionPerformed(ActionEvent e) {
+				if (i > 0) {
+					panel[i] = null;
+					i--;
+				}
+				else {
+					new Alert("Error", "There is currently no record to delete.");
+				}
+			}
+        });
 
 		setVisible(true);
 		
