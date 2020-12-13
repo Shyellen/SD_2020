@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
+import PROCESS.start;
 import package0.*;
 
 import java.sql.*; // import JDBC package
@@ -99,59 +100,78 @@ public class UserFrame extends JFrame {
 		JButton Button1[] = new JButton[99];
 		JButton Button2[] = new JButton[99];
 		JButton Button3[] = new JButton[99];
+		JButton Button4[] = new JButton[99];
+		RecordBoolean RecordBoolean[] = new RecordBoolean[99];
+		RecordNumber RecordNumber[] = new RecordNumber[99];
+		RecordText RecordText[] = new RecordText[99];
+		
 		for (i = 0; i < 99; i++) {
 			exist[i] = false;
-			Button0[i] = new JButton("기록 보기");
-			Button1[i] = new JButton("기록 추가");
-			Button2[i] = new JButton("이미지화");
-			Button3[i] = new JButton("기록 전송");
+			Button0[i] = new JButton("기록 생성/편집");
+			Button1[i] = new JButton("기록 보기");
+			Button2[i] = new JButton("기록 삭제");
+			Button3[i] = new JButton("이미지화");
+			Button4[i] = new JButton("기록 전송");
 			
 			Button0[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
+						new Alert("", "<html>There is already a record at that.<br>Do you want to edit this record?<html>");
+					}
+					else {
+						SetRecordType SetRecordType = new SetRecordType();
+						int type = SetRecordType.GetType();
 						
+						if (type == 0) {
+							RecordBoolean[i] = new RecordBoolean(start.USER_ID);
+							types[i] = 0;
+						}
+						else if (type == 1) {
+							RecordNumber[i] = new RecordNumber(start.USER_ID);
+							types[i] = 1;
+						}
+						else {
+							RecordText[i] = new RecordText(start.USER_ID);
+							types[i] = 2;
+						}
+						exist[i] = true;
+					}
+				}
+	        });
+			Button1[i].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						if (types[i] == 0) {
+
+						}
+						else if (types[i] == 1) {
+
+						}
+						else {
+
+						}
 					}
 					else {
 						new Alert("Error", "There is no record at that.");
 					}
 				}
 	        });
-			Button1[i].addActionListener(new ActionListener() {	
-				
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						new Alert("Error", "There is already a record at that.");
-					}
-					else {
-						SetRecordType SetRecordType = new SetRecordType();
-						int type = SetRecordType.GetType();
-						// System.out.println(type);
-						
-						if (false) {
-							
-						}
-						else {
-							if (type == 0) {
-								new RecordBoolean("USERNAME");
-								types[i] = 0;
-							}
-							else if (type == 1) {
-								new RecordNumber("USERNAME");
-								types[i] = 1;
-							}
-							else {
-								new RecordText("USERNAME");
-								types[i] = 2;
-							}
-							exist[i] = true;
-						}
-					}
-				}
-	        });
 			Button2[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						
+						new Confirm("Confirm", "Do your really want to delete this data?", "The record has successfully deleted.");
+						if (true) {
+							if (types[i] == 0) {
+								RecordBoolean[i] = null;
+							}
+							else if (types[i] == 1) {
+								RecordNumber[i] = null;
+							}
+							else {
+								RecordText[i] = null;
+							}
+							exist[i] = false;
+						}
 					}
 					else {
 						new Alert("Error", "There is no record at this.");
@@ -161,7 +181,17 @@ public class UserFrame extends JFrame {
 			Button3[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						new AlertSendData();
+						new Confirm("Confirm", "Do your really want to send this data?", "The record has successfully sent.");
+					}
+					else {
+						new Alert("Error", "There is no record at this.");
+					}
+				}
+	        });
+			Button4[i].addActionListener(new ActionListener() {	
+				public void actionPerformed(ActionEvent e) {
+					if (exist[i] == true) {
+						new Confirm("Confirm", "Do your really want to send this data?", "The record has successfully sent.");
 					}
 					else {
 						new Alert("Error", "There is no record at this.");
@@ -169,9 +199,6 @@ public class UserFrame extends JFrame {
 				}
 	        });
 		}
-		RecordBoolean RecordBoolean[] = new RecordBoolean[99];
-		RecordNumber RecordNumber[] = new RecordNumber[99];
-		RecordText RecordText[] = new RecordText[99];
 		
 		Font f1 = new Font("돋움", Font.BOLD, 20);
 		JPanel panel[] = new JPanel[99];
@@ -191,6 +218,7 @@ public class UserFrame extends JFrame {
             panel[i].add(Button1[i]);
             panel[i].add(Button2[i]);
             panel[i].add(Button3[i]);
+            panel[i].add(Button4[i]);
             
             MainArea.add(panel[i], gbc);
 		}

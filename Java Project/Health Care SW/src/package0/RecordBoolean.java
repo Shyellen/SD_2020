@@ -65,7 +65,7 @@ public class RecordBoolean extends JFrame {
 					second = Calendar0.get(Calendar.SECOND);
 					
 					if (RadioButton0.isSelected() == true) {
-						datum = true;					
+						datum = true;
 						new Alert("", "Your record has successfully saved.");
 						Frame0.dispose();
 					}

@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Alert {
-	public Alert(String Title, String Text) {
+	public Alert(String Title, String Message) {
 		JFrame Frame = new JFrame(Title);
 		Frame.setSize(315, 200);
 		Frame.setLocationRelativeTo(null);
@@ -15,7 +15,7 @@ public class Alert {
 		
 		Frame.getContentPane().setLayout(null);
 		
-		JLabel Label = new JLabel(Text, JLabel.CENTER);
+		JLabel Label = new JLabel(Message, JLabel.CENTER);
 		Label.setBounds(0, 0, 300, 100);
 		Frame.getContentPane().add(Label);
 		
