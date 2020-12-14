@@ -116,25 +116,36 @@ public class UserFrame extends JFrame {
 			Button0[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						new Alert("", "<html>There is already a record at that.<br>Do you want to edit this record?<html>");
-					}
-					else {
-						SetRecordType SetRecordType = new SetRecordType();
-						int type = SetRecordType.GetType();
-						
-						if (type == 0) {
-							RecordBoolean[i] = new RecordBoolean(start.USER_ID);
-							types[i] = 0;
-						}
-						else if (type == 1) {
-							RecordNumber[i] = new RecordNumber(start.USER_ID);
-							types[i] = 1;
+						int result = JOptionPane.showConfirmDialog(null, "<html>There is already a record at that.<br>Do you want to overwrite this record?<html>");
+						if (result == JOptionPane.YES_OPTION) {
+							
 						}
 						else {
+							
+						}
+					}
+					else {						
+						String[] TypeList = { "Boolean", "Number", "Text"};
+						String type = JOptionPane.showInputDialog("<html>Enter one of the following three:<br>Boolean, Number, Text<html>");
+						
+						if (type.equals("Boolean")) {
+							RecordBoolean[i] = new RecordBoolean(start.USER_ID);
+							types[i] = 0;
+							exist[i] = true;
+						}
+						else if (type.equals("Number")) {
+							RecordNumber[i] = new RecordNumber(start.USER_ID);
+							types[i] = 1;
+							exist[i] = true;
+						}
+						else if (type.equals("Text")) {
 							RecordText[i] = new RecordText(start.USER_ID);
 							types[i] = 2;
+							exist[i] = true;
 						}
-						exist[i] = true;
+						else {
+							new Alert("Error", "Incorrect type input.");
+						}
 					}
 				}
 	        });
@@ -152,14 +163,21 @@ public class UserFrame extends JFrame {
 						}
 					}
 					else {
-						new Alert("Error", "There is no record at that.");
+						new Alert("Error", "There is no record at this.");
 					}
 				}
 	        });
 			Button2[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						new Confirm("Confirm", "Do your really want to delete this data?", "The record has successfully deleted.");
+						int result = JOptionPane.showConfirmDialog(null, "Do your really want to delete this data?");
+						if (result == JOptionPane.YES_OPTION) {
+							
+						}
+						else {
+							
+						}
+						
 						if (true) {
 							if (types[i] == 0) {
 								RecordBoolean[i] = null;
@@ -181,7 +199,7 @@ public class UserFrame extends JFrame {
 			Button3[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						new Confirm("Confirm", "Do your really want to send this data?", "The record has successfully sent.");
+						
 					}
 					else {
 						new Alert("Error", "There is no record at this.");
@@ -191,7 +209,13 @@ public class UserFrame extends JFrame {
 			Button4[i].addActionListener(new ActionListener() {	
 				public void actionPerformed(ActionEvent e) {
 					if (exist[i] == true) {
-						new Confirm("Confirm", "Do your really want to send this data?", "The record has successfully sent.");
+						int result = JOptionPane.showConfirmDialog(null, "Do your really want to send this data?");
+						if (result == JOptionPane.YES_OPTION) {
+							
+						}
+						else {
+							
+						}
 					}
 					else {
 						new Alert("Error", "There is no record at this.");
