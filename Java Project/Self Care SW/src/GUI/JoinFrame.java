@@ -72,12 +72,10 @@ public class JoinFrame extends JFrame {
 		SexPanel.add(WomanRB);
 		DataPanel.add(SexPanel);
 		
-		JTextField BirthField = new JTextField();
-		BirthField.setText("yyyymmdd");
+		JTextField BirthField = new HintTextField("yyyymmdd");
 		DataPanel.add(BirthField);
 		
-		JTextField PhoneField = new JTextField();
-		PhoneField.setText("000-0000-0000");
+		JTextField PhoneField = new HintTextField("000-0000-0000");
 		DataPanel.add(PhoneField);
 		
 		JPanel TypePanel = new JPanel();

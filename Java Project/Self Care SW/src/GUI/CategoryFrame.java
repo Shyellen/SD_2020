@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.sql.*; // import JDBC package
 
 public class CategoryFrame extends JFrame {
-	private JButton InsertBtn;
-	private JButton DeleteBtn;
 	private JPanel contentPane;
 	
 	private static int idx = 0;
@@ -24,56 +24,70 @@ public class CategoryFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setLayout(null);
+		setBackground(Color.white);
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.setBackground(Color.white);
 		
 		idx = CategoryProcess.checkCatCnt(conn, stmt, Id);
     	System.out.println("카테고리 수: "+idx);
 		
 		//////////////////////////////////////// Title Label
-		JLabel TitleLabel = new JLabel("카테고리");
-		Font f1 = new Font("돋움", Font.BOLD, 50);
+		JLabel TitleLabel = new JLabel("Categories");
+		Font f1 = new Font("굴림", Font.BOLD, 50);
 		TitleLabel.setFont(f1);
 		TitleLabel.setBounds(420, 130, 300, 50);
-		add(TitleLabel);
+		contentPane.add(TitleLabel);
     	
 		//////////////////////////////////////// Category Button Panel
     	JPanel BtnPanel = new JPanel();
     	BtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	BtnPanel.setBounds(10, 300, 1045, 160);
+    	BtnPanel.setBackground(Color.white);
     	
-    	InsertBtn = new JButton("+");
+    	RoundedButton3 InsertBtn = new RoundedButton3("+");
     	InsertBtn.setPreferredSize(new Dimension(150, 150));
+    	InsertBtn.setFont(f1);
+    	InsertBtn.setForeground(Color.white);
     	BtnPanel.add(InsertBtn);
     	if (idx == 5) {
 			InsertBtn.setEnabled(false);
     	}
     	
-    	add(BtnPanel);
+    	contentPane.add(BtnPanel);
     	
     	//////////////////////////////////////// Logout Button Panel
     	JPanel LogoutPanel = new JPanel();
     	LogoutPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	LogoutPanel.setBounds(10, 600, 1045, 70);
+    	LogoutPanel.setBackground(Color.white);
 		
-    	JButton LogoutBtn = new JButton("로그아웃");
+    	RoundedButton LogoutBtn = new RoundedButton("로그아웃");
     	LogoutBtn.setPreferredSize(new Dimension(100, 50));
     	LogoutPanel.add(LogoutBtn);
     	
-    	add(LogoutPanel);
+    	contentPane.add(LogoutPanel);
     	
     	//////////////////////////////////////// Delete Button Panel
     	JPanel DeletePanel = new JPanel();
     	DeletePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	DeletePanel.setBounds(10, 455, 1045, 180);
+    	DeletePanel.setBackground(Color.white);
     	
     	JLabel SpaceLabel = new JLabel("");
     	SpaceLabel.setPreferredSize(new Dimension(150, 30));
     	DeletePanel.add(SpaceLabel);
     	
-    	add(DeletePanel);
+    	contentPane.add(DeletePanel);
     	DeletePanel.setVisible(false);
     	
     	//////////////////////////////////////// Start Deletion Button
-    	JButton DeleteBtn = new JButton("-");
+    	RoundedButton3 DeleteBtn = new RoundedButton3("-");
+    	DeleteBtn.setFont(f1);
+    	DeleteBtn.setForeground(Color.white);
     	if (idx == 0) {
     		DeleteBtn.setEnabled(false);
 		}
@@ -81,16 +95,20 @@ public class CategoryFrame extends JFrame {
 			InsertBtn.setEnabled(false);
     	}
     	DeleteBtn.setBounds(945, 250, 50, 50);
-    	add(DeleteBtn);
+    	contentPane.add(DeleteBtn);
         
     	//////////////////////////////////////// 동적 생성 및 삭제 버튼들
-    	JButton btn[] = new JButton[5];
-    	for (int i = 0; i < 5; i++)
-    		btn[i] = new JButton();
+    	RoundedButton2 btn[] = new RoundedButton2[5];
+    	for (int i = 0; i < 5; i++) {
+    		btn[i] = new RoundedButton2();
+    		Font f2 = new Font("굴림", Font.BOLD, 30);
+    		btn[i].setFont(f2);
+    		btn[i].setForeground(Color.white);
+    	}
     	
-        JButton RemoveBtn[] = new JButton[5];
+    	RoundedButton RemoveBtn[] = new RoundedButton[5];
         for (int i = 0; i < 5; i++) {
-        	RemoveBtn[i] = new JButton();
+        	RemoveBtn[i] = new RoundedButton();
         }
 		
         if (idx > 0) {

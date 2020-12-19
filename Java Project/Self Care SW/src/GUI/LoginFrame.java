@@ -3,6 +3,9 @@ package GUI;
 import PROCESS.LoginProcess;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*; // import JDBC package
@@ -11,7 +14,6 @@ public class LoginFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField IdField;
 	private JPasswordField PwField;
-	private JButton LoginBtn, JoinBtn;
 
 	public LoginFrame(Connection conn, Statement stmt) {
 		setTitle("Self Care SW");
@@ -24,31 +26,40 @@ public class LoginFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(Color.white);
+		
+		ImageIcon loginImage = new ImageIcon("images/Self-Care.jpg");
+		Image img = loginImage.getImage();
+		Image changeImg = img.getScaledInstance(400, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeIcon = new ImageIcon(changeImg);
+		JLabel imgLabel = new JLabel(changeIcon);
+		imgLabel.setBounds(0, 0, 400, 100);
+		contentPane.add(imgLabel);
 		
 		JLabel IdLabel = new JLabel("ID");
-		IdLabel.setBounds(41, 52, 69, 35);
+		IdLabel.setBounds(41, 122, 69, 35);
 		contentPane.add(IdLabel);
 		
 		JLabel PwLabel = new JLabel("PW");
-		PwLabel.setBounds(41, 103, 69, 35);
+		PwLabel.setBounds(41, 173, 69, 35);
 		contentPane.add(PwLabel);
 		
 		IdField = new JTextField();
-		IdField.setBounds(157, 52, 176, 35);
+		IdField.setBounds(157, 122, 176, 35);
 		IdField.setColumns(10);
 		contentPane.add(IdField);
 		
 		PwField = new JPasswordField();
-		PwField.setBounds(157, 103, 176, 35);
+		PwField.setBounds(157, 173, 176, 35);
 		PwField.setColumns(10);
 		contentPane.add(PwField);
 		
-		JoinBtn = new JButton("회원가입");
-		JoinBtn.setBounds(229, 154, 104, 29);
+		RoundedButton JoinBtn = new RoundedButton("회원가입");
+		JoinBtn.setBounds(229, 224, 104, 29);
 		contentPane.add(JoinBtn);
 		
-		LoginBtn = new JButton("로그인");
-		LoginBtn.setBounds(108, 154, 106, 29);
+		RoundedButton LoginBtn = new RoundedButton("로그인");
+		LoginBtn.setBounds(108, 224, 106, 29);
 		contentPane.add(LoginBtn);
 		
 		setVisible(true);
