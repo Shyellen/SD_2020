@@ -3,6 +3,8 @@ package package0;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.*;
@@ -12,9 +14,8 @@ import java.util.Calendar;
 @SuppressWarnings("serial")
 public class RecordBoolean extends JFrame {	
 	public int year, month, date, hour, minute, second;
-	public boolean datum;
 	
-	public RecordBoolean(Connection conn, Statement stmt, String ID, String Ename) {
+	public RecordBoolean(Connection conn, Statement stmt, String ID, String Ename, String Cname) {
 		Calendar Calendar0 = Calendar.getInstance();
 		
 		JFrame Frame0 = new JFrame("Write Record");
@@ -32,13 +33,13 @@ public class RecordBoolean extends JFrame {
 		Container Container = getContentPane();
 		Container.setLayout(new FlowLayout());
 		
-		JRadioButton RadioButton0 = new JRadioButton("Yes", true);
-		JRadioButton RadioButton1 = new JRadioButton("No");
+		JRadioButton yesRB = new JRadioButton("Yes", true);
+		JRadioButton noRB = new JRadioButton("No");
 		ButtonGroup ButtonGroup = new ButtonGroup();
-		ButtonGroup.add(RadioButton0);
-		ButtonGroup.add(RadioButton1);
-		Panel0.add(RadioButton0);
-		Panel0.add(RadioButton1);
+		ButtonGroup.add(yesRB);
+		ButtonGroup.add(noRB);
+		Panel0.add(yesRB);
+		Panel0.add(noRB);
 		
 		JPanel Panel1 = new JPanel();
 		Panel1.setBounds(0, 75, 200, 50);
@@ -54,19 +55,13 @@ public class RecordBoolean extends JFrame {
 		
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				year = Calendar0.get(Calendar.YEAR);
-				month = Calendar0.get(Calendar.MONTH) + 1;
-				date = Calendar0.get(Calendar.DAY_OF_MONTH);
-				
 				java.sql.Date date = new java.sql.Date(Calendar0.getTime().getTime());
-					if (RadioButton0.isSelected() == true) {
-						datum = true;
-						new Alert("", date.toString());
+					if (yesRB.isSelected() == true) {
+						insertData(conn, stmt, ID, Ename, Cname, date.toString(), "O");
 						Frame0.dispose();
 					}
-					else if (RadioButton1.isSelected() == true) {
-						datum = false;
-						new Alert("", date.toString());
+					else if (noRB.isSelected() == true) {
+						insertData(conn, stmt, ID, Ename, Cname, date.toString(), "X");
 						Frame0.dispose();
 					}
 				
@@ -80,5 +75,51 @@ public class RecordBoolean extends JFrame {
 		});
 		
 		Frame0.setVisible(true);
+	}
+	
+	public static int insertData(Connection conn, Statement stmt, String ID, String Ename, String Cname, String date, String detail) {
+		ResultSet rs = null;
+		String max = "";
+		int Uindex = 0;
+		String Enum ="";
+		
+		try {
+			String sql1 = "SELECT MAX(Uindex) FROM USER_DATA";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql1);
+			while(rs.next())
+				max = rs.getString(1);
+			if (rs.wasNull())
+				max = "0";
+			rs.close();
+			System.out.println("[insertData] Uindex ÃÖ´ñ°ª: "+max);
+			
+			Uindex = Integer.parseInt(max) + 1;
+			String sql2 = "INSERT INTO USER_DATA(Uindex, Date, Detail) VALUES ('"+Uindex+"', '"+date+"', '"+detail+"')";
+			System.out.println("[insertEve]: "+sql2);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql2);
+			conn.commit();
+			System.out.println("[insertEve]: "+sql2);
+			
+			String sql3 = "SELECT Enum FROM EVENT WHERE Ename='"+Ename+"' and Enum IN (SELECT Enum FROM Emake WHERE Uid='"+ID+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql3);
+			while(rs.next())
+				Enum = rs.getString(1);
+			rs.close();
+			System.out.println("[removeEve] Selected Enum: "+Enum);
+			
+			String sql4 = "INSERT INTO ERECORD(Enum, Uindex) VALUES ('"+Enum+"', '" + Uindex+"')";
+			System.out.println("[insertEve]: "+sql4);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql4);
+			conn.commit();
+		} catch(SQLException ex2) {
+			System.err.println("sql error = " + ex2.getMessage());
+			System.out.println("error3");
+			System.exit(1);
+		}
+		return 1;
 	}
 }

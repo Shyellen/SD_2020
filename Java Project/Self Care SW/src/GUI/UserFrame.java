@@ -119,17 +119,14 @@ public class UserFrame extends JFrame {
 		gbc.insets = new Insets(4, 4, 4, 4);
 		
 		RoundedButton writeDataBtn[] = new RoundedButton[10];
-		RoundedButton Button1[] = new RoundedButton[10];
+		RoundedButton readDataBtn[] = new RoundedButton[10];
 		RoundedButton Button2[] = new RoundedButton[10];
 		RoundedButton Button3[] = new RoundedButton[10];
 		RoundedButton Button4[] = new RoundedButton[10];
-		RecordBoolean RecordBoolean[] = new RecordBoolean[10];
-		RecordNumber RecordNumber[] = new RecordNumber[10];
-		RecordText RecordText[] = new RecordText[10];
 		
 		for (i = 0; i < 10; i++) {
 			writeDataBtn[i] = new RoundedButton("기록하기");
-			Button1[i] = new RoundedButton("기록열람");
+			readDataBtn[i] = new RoundedButton("기록열람");
 			Button2[i] = new RoundedButton("차트화");
 			Button3[i] = new RoundedButton("기록전송");
 			Button4[i] = new RoundedButton(" X ");
@@ -152,7 +149,7 @@ public class UserFrame extends JFrame {
                 panel[i].add(horizontalStrut6);
                 
                 panel[i].add(writeDataBtn[i]);
-                panel[i].add(Button1[i]);
+                panel[i].add(readDataBtn[i]);
                 panel[i].add(Button2[i]);
                 panel[i].add(Button3[i]);
                 panel[i].add(Button4[i]);
@@ -192,14 +189,14 @@ public class UserFrame extends JFrame {
                 }
             }
         });
+		
 		writeDataBtn[0].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("[writeDataBtn] DEBUG0");
 				String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
 				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[0]);
 				if (EveType.equals("bool")) {
-					RecordBoolean[0] = new RecordBoolean(conn, stmt, ID, EveName[0]);
+					RecordBoolean RecordBoolean1 = new RecordBoolean(conn, stmt, ID, EveName[0], name);
 				}
 				else if(EveType.equals("num")) {
 					//RecordNumber[0] = new RecordNumber(conn, stmt, ID, EveName[0]);
@@ -217,7 +214,7 @@ public class UserFrame extends JFrame {
 				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[1]);
 				
 				if (EveType.equals("bool")) {
-					RecordBoolean[1] = new RecordBoolean(conn, stmt, ID, EveName[1]);
+					RecordBoolean RecordBoolean1 = new RecordBoolean(conn, stmt, ID, EveName[1], name);
 				}
 				else if(EveType.equals("num")) {
 					//RecordNumber[1] = new RecordNumber(conn, stmt, ID, EveName[1]);
@@ -235,7 +232,7 @@ public class UserFrame extends JFrame {
 				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[2]);
 				
 				if (EveType.equals("bool")) {
-					RecordBoolean[2] = new RecordBoolean(conn, stmt, ID, EveName[2]);
+					RecordBoolean RecordBoolean1 = new RecordBoolean(conn, stmt, ID, EveName[2], name);
 				}
 				else if(EveType.equals("num")) {
 					//RecordNumber[2] = new RecordNumber(conn, stmt, ID, EveName[2]);
@@ -243,6 +240,15 @@ public class UserFrame extends JFrame {
 				else if(EveType.equals("text")) {
 					//RecordText[2] = new RecordText(conn, stmt, ID, EveName[2]);
 				}
+			}
+			
+		});
+		
+		readDataBtn[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
+				DataFrame frame = new DataFrame(conn, stmt, ID, EveName[0], name);
 			}
 			
 		});

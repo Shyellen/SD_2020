@@ -151,7 +151,7 @@ public class UserEventProcess {
 		return 1;
 	}
 	
-	public static int removeEve(Connection conn, Statement stmt, String Id, String Ename) {
+	public static int removeEve(Connection conn, Statement stmt, String Id, String Ename, String Cname) {
 		ResultSet rs = null;
 		String Enum = null;
 		
@@ -185,6 +185,55 @@ public class UserEventProcess {
 		return 1;
 	}
 	
-	
+	public static void checkData(Connection conn, Statement stmt, String Id, String Ename, String Cname) {
+		ResultSet rs = null;
+		String Enum = "";
+		int cnt = 0;
+		int i=0;
+		
+		try {
+			String sql1 = "SELECT Enum FROM EVENT WHERE Ename='"+Ename+"' and Enum IN (SELECT Enum FROM Emake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql1);
+			while(rs.next())
+				Enum = rs.getString(1);
+			rs.close();
+			System.out.println("[removeEve] Selected Enum: "+Enum);
+			
+			String sql2 = "SELECT COUNT(*) FROM USER_DATA WHERE Uindex IN (SELECT Uindex FROM ERECORD WHERE Enum='"+Enum+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql2);
+			while(rs.next()) {
+				cnt = Integer.parseInt(rs.getString(1));	
+			}
+			rs.close();
+			
+			String[] DBrs1 = new String[cnt];
+			String[] DBrs2 = new String[cnt];
+			String[] DBrs3 = new String[cnt];
+			
+			String sql3 = "SELECT * FROM USER_DATA WHERE Uindex IN (SELECT Uindex FROM ERECORD WHERE Enum='"+Enum+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql3);
+			while(rs.next()) {
+				DBrs1[i] = (String) rs.getString(1);
+				DBrs2[i] = (String) rs.getString(2);
+				DBrs3[i] = (String) rs.getString(3);
+				i++;
+			}
+			rs.close();
+			
+			System.out.print("[checkData]: ");
+			for (int j=0; j<cnt; j++)
+				System.out.println(DBrs1[j]+" "+DBrs2[j]+" "+DBrs3[j]);
+			
+		}
+		catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			System.out.println("error2");
+			e.printStackTrace();
+		}
+		
+	}
 
 }
