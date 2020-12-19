@@ -94,5 +94,39 @@ public class CategoryProcess {
 		return 1;
 	}
 	
+	public static int removeCat(Connection conn, Statement stmt, String Id, String Cname) {
+		ResultSet rs = null;
+		String Cnum = null;
+		
+		try {
+			String sql1 = "SELECT Cnum FROM category WHERE Cname='"+Cname+"' and Cnum IN (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql1);
+			while(rs.next())
+				Cnum = rs.getString(1);
+			rs.close();
+			System.out.println("[removeCat] Selected Cnum: "+Cnum);
+			
+			
+			String sql2 = "DELETE FROM category WHERE Cnum='"+Cnum+"'";
+			System.out.println("[removeCat]: "+sql2);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql2);
+			conn.commit();
+			
+			String sql3 = "DELETE FROM CMAKE WHERE Cnum='"+Cnum+"'";
+			System.out.println("[removeCat]: "+sql3);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql3);
+			conn.commit();
+			
+		} catch(SQLException ex2) {
+			System.err.println("sql error = " + ex2.getMessage());
+			System.out.println("error3");
+			System.exit(1);
+		}
+		return 1;
+	}
+	
 	
 }

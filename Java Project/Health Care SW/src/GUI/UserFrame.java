@@ -290,7 +290,9 @@ public class UserFrame extends JFrame {
 		btnBackButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, ID);
+				
 			}
         });
 		btnAddEvent.addActionListener(new ActionListener() {	

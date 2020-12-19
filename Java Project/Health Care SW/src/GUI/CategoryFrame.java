@@ -43,6 +43,9 @@ public class CategoryFrame extends JFrame {
     	InsertBtn = new JButton("+");
     	InsertBtn.setPreferredSize(new Dimension(150, 150));
     	BtnPanel.add(InsertBtn);
+    	if (idx == 5) {
+			InsertBtn.setEnabled(false);
+    	}
     	
     	add(BtnPanel);
     	
@@ -86,6 +89,9 @@ public class CategoryFrame extends JFrame {
     	if (idx == 0) {
     		DeleteBtn.setEnabled(false);
 		}
+    	if (idx == 5) {
+			InsertBtn.setEnabled(false);
+    	}
     	DeleteBtn.setBounds(945, 250, 50, 50);
     	add(DeleteBtn);
         
@@ -94,18 +100,21 @@ public class CategoryFrame extends JFrame {
     	for (int i = 0; i < 5; i++)
     		btn[i] = new JButton();
     	
-    	if (idx > 0) {
-    		String name[] = CategoryProcess.checkCatCname(conn, stmt, Id, idx);
-    		for (int i=0; i < idx; i++) {
-    			btn[i].setText(name[i]);
-    			btn[i].setPreferredSize(new Dimension(150, 150));
-    			BtnPanel.add(btn[i]);
-    		}
-        }
-    	
         JButton RemoveBtn[] = new JButton[5];
         for (int i = 0; i < 5; i++) {
         	RemoveBtn[i] = new JButton();
+        }
+		
+        if (idx > 0) {
+        	String CatName[] = CategoryProcess.checkCatCname(conn, stmt, Id, idx);
+    		for (int i=0; i < idx; i++) {
+    			btn[i].setText(CatName[i]);
+    			btn[i].setPreferredSize(new Dimension(150, 150));
+    			RemoveBtn[i].setText("Remove");
+    			RemoveBtn[i].setPreferredSize(new Dimension(150, 30));
+    			BtnPanel.add(btn[i]);
+    			DeletePanel.add(RemoveBtn[i]);
+    		}
         }
         
         setVisible(true);
@@ -117,21 +126,23 @@ public class CategoryFrame extends JFrame {
 				JOptionPane popup = new JOptionPane();
 				String CatName = popup.showInputDialog("추가할 카테고리 이름 입력(2글자 이상)");
 				if(CatName.length() >= 2) {
-					CategoryProcess.insertCat(conn, stmt, Id, CatName);
-					btn[idx].setText(CatName);
-					btn[idx].setPreferredSize(new Dimension(150, 150));
-					BtnPanel.add(btn[idx]);
-					RemoveBtn[idx].setText("Remove");
-					RemoveBtn[idx].setPreferredSize(new Dimension(150, 30));
-					DeletePanel.add(RemoveBtn[idx]);
-					idx = idx + 1;					
-					if (idx == 5) {
-						InsertBtn.setEnabled(false);
-					}
+					boolean check = true;
 					if (idx > 0) {
-						DeleteBtn.setEnabled(true);
+						for (int i=0; i<idx; i++) {
+							if (CatName.equals(btn[i].getText())) {
+								JOptionPane.showMessageDialog(null, "이미 존재하는 이름입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+								check = false;
+							}
+						}
 					}
-					setVisible(true);
+					if(check == true) {
+						CategoryProcess.insertCat(conn, stmt, Id, CatName);
+						dispose();
+						CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "2글자 이상 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -147,7 +158,11 @@ public class CategoryFrame extends JFrame {
 				else {
 					delete = false;
 					DeletePanel.setVisible(false);
-					InsertBtn.setEnabled(true);
+					if (idx == 5) {
+						InsertBtn.setEnabled(false);
+					}
+					else
+						InsertBtn.setEnabled(true);
 				}
 				setVisible(true);
 			}
@@ -211,5 +226,56 @@ public class CategoryFrame extends JFrame {
 				UserFrame frame = new UserFrame(conn, stmt, Id);
 			}
 		});
+        
+        RemoveBtn[0].addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				CategoryProcess.removeCat(conn, stmt, Id, btn[0].getText());
+				JOptionPane.showMessageDialog(null, btn[0].getText()+"삭제 완료");
+				dispose();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+			}
+		});
+        
+        RemoveBtn[1].addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				CategoryProcess.removeCat(conn, stmt, Id, btn[1].getText());
+				JOptionPane.showMessageDialog(null, btn[1].getText()+"삭제 완료");
+				dispose();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+			}
+		});
+        
+        RemoveBtn[2].addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				CategoryProcess.removeCat(conn, stmt, Id, btn[2].getText());
+				JOptionPane.showMessageDialog(null, btn[2].getText()+"삭제 완료");
+				dispose();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+			}
+		});
+        
+        RemoveBtn[3].addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				CategoryProcess.removeCat(conn, stmt, Id, btn[3].getText());
+				JOptionPane.showMessageDialog(null, btn[3].getText()+"삭제 완료");
+				dispose();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+			}
+		});
+        
+        RemoveBtn[4].addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				CategoryProcess.removeCat(conn, stmt, Id, btn[4].getText());
+				JOptionPane.showMessageDialog(null, btn[4].getText()+"삭제 완료");
+				dispose();
+				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
+			}
+		});
+        
 	}
 }
