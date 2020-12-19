@@ -7,8 +7,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
+import PROCESS.CategoryProcess;
 import PROCESS.start;
 import package0.*;
+import PROCESS.UserEventProcess;
 
 import java.sql.*; // import JDBC package
 
@@ -17,10 +19,11 @@ public class UserFrame extends JFrame {
 	private JPanel contentPane;
 	private boolean payTF;
 	
+	int idx = 0;
 	private int i = 0;
 
 	public UserFrame(Connection conn, Statement stmt, String ID, String name) {
-		setTitle("Health Care SW");
+		setTitle("Self Care SW");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1080, 720);
 		setResizable(false);
@@ -31,10 +34,14 @@ public class UserFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setBackground(Color.white);
 		setContentPane(contentPane);
+		
+		idx = UserEventProcess.checkEveCnt(conn, stmt, ID, name);
 		
 		//////////////////////////// 카테고리 이름 출력 패널  ////////////////////////////
 		JPanel northPanel = new JPanel();
+		northPanel.setBackground(Color.white);
 		contentPane.add(northPanel, BorderLayout.NORTH);
 		JLabel catName = new JLabel(name);
 		catName.setFont(new Font("굴림", Font.BOLD, 50));
@@ -47,6 +54,7 @@ public class UserFrame extends JFrame {
 		JPanel southPanel = new JPanel();
 		southPanel.setPreferredSize(new Dimension(1080, 50));
 		southPanel.setLayout(new GridLayout(1, 3, 5, 5));
+		southPanel.setBackground(Color.white);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		southPanel.add(horizontalStrut);
@@ -62,7 +70,7 @@ public class UserFrame extends JFrame {
 		
 		ADpanel.setVisible(!payTF);
 		
-		JButton PaymentBtn = new JButton("결제하기");
+		RoundedButton3 PaymentBtn = new RoundedButton3("결제하기");
 		if (payTF == true) {
 			PaymentBtn.setEnabled(!payTF);
 			PaymentBtn.setText("결제완료");
@@ -72,18 +80,20 @@ public class UserFrame extends JFrame {
 		contentPane.add(southPanel, BorderLayout.SOUTH);
 		//////////////////////////// 중앙 패널: 버튼+데이터 ////////////////////////////
 		JPanel centerPanel = new JPanel();
-		contentPane.add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setBackground(Color.white);
 		centerPanel.setLayout(new BorderLayout(0, 0));
+		contentPane.add(centerPanel, BorderLayout.CENTER);
 		
 		//////////////////////////// 중앙-왼쪽 버튼 패널 ////////////////////////////
 		JPanel btnPanel = new JPanel();
 		centerPanel.add(btnPanel, BorderLayout.WEST);
 		btnPanel.setLayout(new GridLayout(7, 1, 5, 5));
+		btnPanel.setBackground(Color.white);
 		
-		JButton btnAddEvent = new JButton("Add");
+		RoundedButton3 btnAddEvent = new RoundedButton3("Add");
 		btnPanel.add(btnAddEvent);
 		
-		JButton btnDelEvent = new JButton("Del");
+		RoundedButton3 btnDelEvent = new RoundedButton3("Del");
 		btnPanel.add(btnDelEvent);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
@@ -98,27 +108,28 @@ public class UserFrame extends JFrame {
 		Component verticalStrut_3 = Box.createVerticalStrut(20);
 		btnPanel.add(verticalStrut_3);
 		
-		JButton btnBackButton = new JButton("←");
+		RoundedButton3 btnBackButton = new RoundedButton3("←");
 		btnPanel.add(btnBackButton);
 		
 		//////////////////////////// 중앙-중앙 데이터 출력 패널 ////////////////////////////
 		JPanel MainArea = new JPanel(new GridBagLayout());
+		MainArea.setBackground(Color.white);
 		centerPanel.add(new JScrollPane(MainArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(4, 4, 4, 4);
 		
-		Boolean exist[] = new Boolean[99];
-		int types[] = new int[99];
-		JButton Button0[] = new JButton[99];
-		JButton Button1[] = new JButton[99];
-		JButton Button2[] = new JButton[99];
-		JButton Button3[] = new JButton[99];
-		JButton Button4[] = new JButton[99];
-		RecordBoolean RecordBoolean[] = new RecordBoolean[99];
-		RecordNumber RecordNumber[] = new RecordNumber[99];
-		RecordText RecordText[] = new RecordText[99];
+		Boolean exist[] = new Boolean[10];
+		int types[] = new int[10];
+		JButton Button0[] = new JButton[10];
+		JButton Button1[] = new JButton[10];
+		JButton Button2[] = new JButton[10];
+		JButton Button3[] = new JButton[10];
+		JButton Button4[] = new JButton[10];
+		RecordBoolean RecordBoolean[] = new RecordBoolean[10];
+		RecordNumber RecordNumber[] = new RecordNumber[10];
+		RecordText RecordText[] = new RecordText[10];
 		
-		for (i = 0; i < 99; i++) {
+		for (i = 0; i < 10; i++) {
 			exist[i] = false;
 			Button0[i] = new JButton("기록 생성/편집");
 			Button1[i] = new JButton("기록 보기");
@@ -238,31 +249,34 @@ public class UserFrame extends JFrame {
 		}
 		
 		Font f1 = new Font("돋움", Font.BOLD, 20);
-		JPanel panel[] = new JPanel[99];
-		
-		for (i = 0; i < 3; i++) {
-        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        	panel[i].setBackground(Color.ORANGE);
-        	panel[i].setPreferredSize(new Dimension(970, 70));
-        	
-            gbc.gridy = i;
-            gbc.gridx = 0;
-            panel[i].add(new JLabel("Name of Event")).setFont(f1);
-            Component horizontalStrut6 = Box.createHorizontalStrut(50);
-            panel[i].add(horizontalStrut6);
-            
-            panel[i].add(Button0[i]);
-            panel[i].add(Button1[i]);
-            panel[i].add(Button2[i]);
-            panel[i].add(Button3[i]);
-            panel[i].add(Button4[i]);
-            
-            MainArea.add(panel[i], gbc);
-		}
+		JPanel panel[] = new JPanel[10];
+		if (idx > 0) {
+        	String EveName[] = CategoryProcess.checkCatCname(conn, stmt, ID, idx);
+    		for (int i=0; i < idx; i++) {
+    			panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            	panel[i].setBackground(Color.ORANGE);
+            	panel[i].setPreferredSize(new Dimension(970, 70));
+            	
+                gbc.gridy = i;
+                gbc.gridx = 0;
+                
+                panel[i].add(new JLabel(EveName[i])).setFont(f1);
+                Component horizontalStrut6 = Box.createHorizontalStrut(50);
+                panel[i].add(horizontalStrut6);
+                
+                panel[i].add(Button0[i]);
+                panel[i].add(Button1[i]);
+                panel[i].add(Button2[i]);
+                panel[i].add(Button3[i]);
+                panel[i].add(Button4[i]);
+                
+                MainArea.add(panel[i], gbc);
+    		}
+        }
         
 		btnAddEvent.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				if (i < 99) {					
+				if (idx < 10) {					
 		        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		        	panel[i].setBackground(Color.ORANGE);
 		        	panel[i].setPreferredSize(new Dimension(970, 70));
@@ -281,7 +295,7 @@ public class UserFrame extends JFrame {
 		        	i++;
 				}
 				else {
-					new Alert("Error", "You cannot create more than 99 records.");
+					new Alert("Error", "You cannot create more than 10 records.");
 				}
 			}
         });
@@ -310,7 +324,7 @@ public class UserFrame extends JFrame {
 		btnAddEvent.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddEventFrame frame = new AddEventFrame();
+				AddEventFrame frame = new AddEventFrame(conn, stmt, ID);
 			}
         });
 		PaymentBtn.addActionListener(new java.awt.event.ActionListener() {

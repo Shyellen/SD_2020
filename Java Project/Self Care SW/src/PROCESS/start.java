@@ -125,7 +125,7 @@ public class start {
 			sb.append("CREATE TABLE EVENT(\n" + 
 					"	Enum integer,\n" + 
 					"	Ename character varying(30),\n" + 
-					"	Etype character varying(5),\n" + 
+					"	Etype character varying(8),\n" + 
 					"primary key(Enum)" + ");");
 			}
 			if(!Isintable(thereistable, "cmake", cnt)) {

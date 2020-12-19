@@ -81,7 +81,7 @@ public class LoginFrame extends JFrame {
 				
 				if (LoginProcess.checkID(conn, stmt, Id, Pw)) {
 					String Type = LoginProcess.checkType(conn, stmt, Id);
-					JOptionPane.showMessageDialog(null, "[성공] " + Id + " 타입: " + Type);
+					//JOptionPane.showMessageDialog(null, "[성공] " + Id + " 타입: " + Type);
 					if (Type.equals("expert")) {
 						ExpertFrame frame = new ExpertFrame(conn, stmt, Id);
 					}

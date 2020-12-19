@@ -186,7 +186,7 @@ public class CategoryFrame extends JFrame {
         btn[0].addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, btn[0].getText());
+				//JOptionPane.showMessageDialog(null, btn[0].getText());
 				name = btn[0].getText();
 				dispose();
 				UserFrame frame = new UserFrame(conn, stmt, Id, btn[0].getText());
@@ -196,7 +196,7 @@ public class CategoryFrame extends JFrame {
         btn[1].addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, btn[1].getText());
+				//JOptionPane.showMessageDialog(null, btn[1].getText());
 				name = btn[1].getText();
 				dispose();
 				UserFrame frame = new UserFrame(conn, stmt, Id, btn[1].getText());
@@ -206,7 +206,7 @@ public class CategoryFrame extends JFrame {
         btn[2].addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, btn[2].getText());
+				//JOptionPane.showMessageDialog(null, btn[2].getText());
 				name = btn[2].getText();
 				dispose();
 				UserFrame frame = new UserFrame(conn, stmt, Id, btn[2].getText());
@@ -216,7 +216,7 @@ public class CategoryFrame extends JFrame {
         btn[3].addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, btn[3].getText());
+				//JOptionPane.showMessageDialog(null, btn[3].getText());
 				name = btn[3].getText();
 				dispose();
 				UserFrame frame = new UserFrame(conn, stmt, Id, btn[3].getText());
@@ -226,7 +226,7 @@ public class CategoryFrame extends JFrame {
         btn[4].addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, btn[4].getText());
+				//JOptionPane.showMessageDialog(null, btn[4].getText());
 				name = btn[4].getText();
 				dispose();
 				UserFrame frame = new UserFrame(conn, stmt, Id, btn[4].getText());
@@ -237,7 +237,7 @@ public class CategoryFrame extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				CategoryProcess.removeCat(conn, stmt, Id, btn[0].getText());
-				JOptionPane.showMessageDialog(null, btn[0].getText()+"삭제 완료");
+				JOptionPane.showMessageDialog(null, btn[0].getText()+" 삭제 완료");
 				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 			}
@@ -247,7 +247,7 @@ public class CategoryFrame extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				CategoryProcess.removeCat(conn, stmt, Id, btn[1].getText());
-				JOptionPane.showMessageDialog(null, btn[1].getText()+"삭제 완료");
+				JOptionPane.showMessageDialog(null, btn[1].getText()+" 삭제 완료");
 				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 			}
@@ -257,7 +257,7 @@ public class CategoryFrame extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				CategoryProcess.removeCat(conn, stmt, Id, btn[2].getText());
-				JOptionPane.showMessageDialog(null, btn[2].getText()+"삭제 완료");
+				JOptionPane.showMessageDialog(null, btn[2].getText()+" 삭제 완료");
 				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 			}
@@ -267,7 +267,7 @@ public class CategoryFrame extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				CategoryProcess.removeCat(conn, stmt, Id, btn[3].getText());
-				JOptionPane.showMessageDialog(null, btn[3].getText()+"삭제 완료");
+				JOptionPane.showMessageDialog(null, btn[3].getText()+" 삭제 완료");
 				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 			}
@@ -277,7 +277,7 @@ public class CategoryFrame extends JFrame {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 				CategoryProcess.removeCat(conn, stmt, Id, btn[4].getText());
-				JOptionPane.showMessageDialog(null, btn[4].getText()+"삭제 완료");
+				JOptionPane.showMessageDialog(null, btn[4].getText()+" 삭제 완료");
 				dispose();
 				CategoryFrame frame = new CategoryFrame(conn, stmt, Id);
 			}

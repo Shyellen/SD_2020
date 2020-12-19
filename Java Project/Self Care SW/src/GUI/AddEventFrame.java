@@ -2,9 +2,13 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.Statement;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import PROCESS.UserEventProcess;
 
 public class AddEventFrame extends JFrame implements FocusListener{
 
@@ -15,7 +19,7 @@ public class AddEventFrame extends JFrame implements FocusListener{
 	public JTextField NameField;
 	public JButton ConfirmBtn;
 	
-	public AddEventFrame() {
+	public AddEventFrame(Connection conn, Statement stmt, String ID) {
 		setTitle("Add Event");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 250);
@@ -83,19 +87,21 @@ public class AddEventFrame extends JFrame implements FocusListener{
 			public void actionPerformed(ActionEvent e) {
 				if (booleanRB.isSelected()) {
 					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ booleanRB.getText());
+					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "bool");
 				}
 				else if (numberRB.isSelected()) {
 					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ numberRB.getText());
+					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "num");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ textRB.getText());
+					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "text");
 				}
 				dispose();
 			}
 		});
 	}
 	
-
 	@Override
 	public void focusGained(FocusEvent e) {
 		// TODO Auto-generated method stub
