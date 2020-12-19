@@ -9,8 +9,17 @@ public class UserEventProcess {
 	public static int checkEveCnt(Connection conn, Statement stmt, String Id, String CatName) {	// 
 		ResultSet rs = null;
 		String DBcnt = "";
+		String Cnum = "";
 		try {
-			String sql = "SELECT COUNT(*) FROM EMAKE WHERE Uid = '"+Id+"'";
+			String sql4 = "SELECT Cnum FROM category WHERE Cname='"+CatName+"' and Cnum IN (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql4);
+			while(rs.next())
+				Cnum = rs.getString(1);
+			rs.close();
+			System.out.println("[checkEveCnt] Selected Cnum: "+Cnum);
+			
+			String sql = "SELECT COUNT(*) FROM CATEVT WHERE Cnum = '"+Cnum+"'";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -27,13 +36,22 @@ public class UserEventProcess {
 		return Integer.parseInt(DBcnt);
 	}
 
-	//////////////////////////////////////// 해당 ID로 생성된 카테고리 이름을 확인한다.
-	public static String[] checkEveCname(Connection conn, Statement stmt, String Id, int cnt) {
+	//////////////////////////////////////// 해당 ID로 생성된 이벤트 이름을 확인한다.
+	public static String[] checkEveCname(Connection conn, Statement stmt, String Id, int cnt, String CatName) {
 		ResultSet rs = null;
 		String[] DBname = new String[cnt];
+		String Cnum = "";
 		
 		try {
-			String sql = "SELECT Ename FROM EVENT WHERE Enum IN (SELECT Enum FROM Emake WHERE Uid='"+Id+"')";
+			String sql4 = "SELECT Cnum FROM category WHERE Cname='"+CatName+"' and Cnum IN (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql4);
+			while(rs.next())
+				Cnum = rs.getString(1);
+			rs.close();
+			System.out.println("[checkEveCnt] Selected Cnum: "+Cnum);
+			
+			String sql = "SELECT Ename FROM EVENT WHERE Enum IN (SELECT Enum FROM CATEVT WHERE Cnum='"+Cnum+"')";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
@@ -48,7 +66,7 @@ public class UserEventProcess {
 			System.out.println("error2");
 			e.printStackTrace();
 		}
-		System.out.print("[checkEveCname] 카테고리 명: ");
+		System.out.print("[checkEveCname] 이벤트 명: ");
 		for (int i=0; i<cnt; i++)
 			System.out.print(DBname[i]+" ");
 		System.out.println("");
@@ -56,11 +74,36 @@ public class UserEventProcess {
 		return DBname;
 	}
 	
+	public static String checkEveType(Connection conn, Statement stmt, String Ename) {
+		ResultSet rs = null;
+		String type = "";
+		
+		System.out.print("[checkEveType] 진입");
+		try {
+			String sql = "SELECT Etype FROM EVENT WHERE Ename = '"+Ename+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				type = rs.getString(1).toString();
+			}
+			rs.close();
+		}
+		catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			System.out.println("error2");
+			e.printStackTrace();
+		}
+		System.out.print("[checkEveType] 이벤트 타입: "+type);
+		
+		return type;
+	}
 	//////////////////////////////////////// 새로운 이벤트를 생성해 넣는다.
-	public static int insertEve(Connection conn, Statement stmt, String Id, String Ename, String type) {
+	public static int insertEve(Connection conn, Statement stmt, String Id, String Ename, String type, String catName) {
 		ResultSet rs = null;
 		String max = "";
 		int Enum = 0;
+		String Cnum ="";
 		
 		try {
 			String sql1 = "SELECT MAX(Enum) FROM EVENT";
@@ -85,6 +128,20 @@ public class UserEventProcess {
 			System.out.println("[insertEve]: "+sql3);
 			stmt = conn.createStatement();
 			stmt.executeUpdate(sql3);
+			conn.commit();
+			
+			String sql4 = "SELECT Cnum FROM category WHERE Cname='"+catName+"' and Cnum IN (SELECT Cnum FROM Cmake WHERE Uid='"+Id+"')";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql4);
+			while(rs.next())
+				Cnum = rs.getString(1);
+			rs.close();
+			System.out.println("[insertEve] Selected Cnum: "+Cnum);
+			
+			String sql5 = "INSERT INTO CATEVT(Cnum, Enum) VALUES ('"+Cnum+"', '" + Enum+"')";
+			System.out.println("[insertEve]: "+sql5);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql5);
 			conn.commit();
 		} catch(SQLException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());

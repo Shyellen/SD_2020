@@ -19,7 +19,7 @@ public class AddEventFrame extends JFrame implements FocusListener{
 	public JTextField NameField;
 	public JButton ConfirmBtn;
 	
-	public AddEventFrame(Connection conn, Statement stmt, String ID) {
+	public AddEventFrame(Connection conn, Statement stmt, String ID, String catName) {
 		setTitle("Add Event");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 250);
@@ -85,19 +85,25 @@ public class AddEventFrame extends JFrame implements FocusListener{
 		ConfirmBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (booleanRB.isSelected()) {
-					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ booleanRB.getText());
-					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "bool");
-				}
-				else if (numberRB.isSelected()) {
-					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ numberRB.getText());
-					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "num");
+				if(NameField.getText().length() > 2 ) {
+					if (booleanRB.isSelected()) {
+						JOptionPane.showMessageDialog(null, NameField.getText()+", "+ booleanRB.getText());
+						UserEventProcess.insertEve(conn, stmt, ID, NameField.getText().toString(), "bool", catName);
+					}
+					else if (numberRB.isSelected()) {
+						JOptionPane.showMessageDialog(null, NameField.getText()+", "+ numberRB.getText());
+						UserEventProcess.insertEve(conn, stmt, ID, NameField.getText().toString(), "num", catName);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, NameField.getText()+", "+ textRB.getText());
+						UserEventProcess.insertEve(conn, stmt, ID, NameField.getText().toString(), "text", catName);
+					}
+					dispose();
 				}
 				else {
-					JOptionPane.showMessageDialog(null, NameField.getText()+", "+ textRB.getText());
-					UserEventProcess.insertEve(conn, stmt, ID, NameField.getText(), "text");
+					JOptionPane.showMessageDialog(null, "2글자 이상 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-				dispose();
+				
 			}
 		});
 	}

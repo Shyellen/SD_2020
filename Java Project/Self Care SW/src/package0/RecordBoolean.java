@@ -2,17 +2,19 @@ package package0;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.Statement;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Calendar;
 
 @SuppressWarnings("serial")
 public class RecordBoolean extends JFrame {	
-	public String username;
 	public int year, month, date, hour, minute, second;
 	public boolean datum;
 	
-	public RecordBoolean(String Username) {
+	public RecordBoolean(Connection conn, Statement stmt, String ID, String Ename) {
 		Calendar Calendar0 = Calendar.getInstance();
 		
 		JFrame Frame0 = new JFrame("Write Record");
@@ -30,7 +32,7 @@ public class RecordBoolean extends JFrame {
 		Container Container = getContentPane();
 		Container.setLayout(new FlowLayout());
 		
-		JRadioButton RadioButton0 = new JRadioButton("Yes");
+		JRadioButton RadioButton0 = new JRadioButton("Yes", true);
 		JRadioButton RadioButton1 = new JRadioButton("No");
 		ButtonGroup ButtonGroup = new ButtonGroup();
 		ButtonGroup.add(RadioButton0);
@@ -52,29 +54,22 @@ public class RecordBoolean extends JFrame {
 		
 		Button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				if (RadioButton0.isSelected() == false && RadioButton1.isSelected() == false) {
-					new Alert("Error", "You should select one of yes or no.");
-				}
-				else {
-					username = Username;
-					year = Calendar0.get(Calendar.YEAR);
-					month = Calendar0.get(Calendar.MONTH) + 1;
-					date = Calendar0.get(Calendar.DAY_OF_MONTH);
-					hour = Calendar0.get(Calendar.HOUR_OF_DAY);
-					minute = Calendar0.get(Calendar.MINUTE);
-					second = Calendar0.get(Calendar.SECOND);
-					
+				year = Calendar0.get(Calendar.YEAR);
+				month = Calendar0.get(Calendar.MONTH) + 1;
+				date = Calendar0.get(Calendar.DAY_OF_MONTH);
+				
+				java.sql.Date date = new java.sql.Date(Calendar0.getTime().getTime());
 					if (RadioButton0.isSelected() == true) {
 						datum = true;
-						new Alert("", "Your record has successfully saved.");
+						new Alert("", date.toString());
 						Frame0.dispose();
 					}
 					else if (RadioButton1.isSelected() == true) {
 						datum = false;
-						new Alert("", "Your record has successfully saved.");
+						new Alert("", date.toString());
 						Frame0.dispose();
 					}
-				}
+				
 			}
 		});
 		
@@ -85,9 +80,5 @@ public class RecordBoolean extends JFrame {
 		});
 		
 		Frame0.setVisible(true);
-	}
-	
-	public static void main(String[] args) {
-		new RecordBoolean("");
 	}
 }

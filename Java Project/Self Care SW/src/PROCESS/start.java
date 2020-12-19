@@ -51,7 +51,7 @@ public class start {
 		String value = "";			// txt 파일에서 읽어들인 값을 저장할 변수 
 		String[] value_parsing;		// value에 저장된 String을 파싱한 결과를 담을 변수 
 		String[] thereistable;
-		thereistable = new String[13];
+		thereistable = new String[14];
 		int cnt=0;
 		
 		// Execute an SQL statement for CREATE TABLE
@@ -82,6 +82,7 @@ public class start {
 				if(check.equals("erecord")) thereistable[cnt++]="erecord";
 				if(check.equals("send")) thereistable[cnt++]="send";
 				if(check.equals("write")) thereistable[cnt++]="write";
+				if(check.equals("catevt")) thereistable[cnt++]="catevt";
 			}
 			
 			System.out.println(sql);
@@ -178,6 +179,13 @@ public class start {
 					"	Eindex integer,\n" +
 					"primary key(Eid, Eindex)" + ");");
 				}
+			if(!Isintable(thereistable, "catevt", cnt)) {
+				sb.append("CREATE TABLE CATEVT(\n" + 
+						"	Cnum integer,\n" +
+						"	Enum integer,\n" +
+						"primary key(Cnum, Enum)" + ");");
+					}
+			
 			
 			if(sb!=null) {
 				System.out.println(sb);

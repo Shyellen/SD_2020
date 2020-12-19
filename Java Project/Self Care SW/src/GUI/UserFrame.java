@@ -118,140 +118,27 @@ public class UserFrame extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(4, 4, 4, 4);
 		
-		Boolean exist[] = new Boolean[10];
-		int types[] = new int[10];
-		JButton Button0[] = new JButton[10];
-		JButton Button1[] = new JButton[10];
-		JButton Button2[] = new JButton[10];
-		JButton Button3[] = new JButton[10];
-		JButton Button4[] = new JButton[10];
+		RoundedButton writeDataBtn[] = new RoundedButton[10];
+		RoundedButton Button1[] = new RoundedButton[10];
+		RoundedButton Button2[] = new RoundedButton[10];
+		RoundedButton Button3[] = new RoundedButton[10];
+		RoundedButton Button4[] = new RoundedButton[10];
 		RecordBoolean RecordBoolean[] = new RecordBoolean[10];
 		RecordNumber RecordNumber[] = new RecordNumber[10];
 		RecordText RecordText[] = new RecordText[10];
 		
 		for (i = 0; i < 10; i++) {
-			exist[i] = false;
-			Button0[i] = new JButton("기록 생성/편집");
-			Button1[i] = new JButton("기록 보기");
-			Button2[i] = new JButton("기록 삭제");
-			Button3[i] = new JButton("이미지화");
-			Button4[i] = new JButton("기록 전송");
-			
-			Button0[i].addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						int result = JOptionPane.showConfirmDialog(null, "<html>There is already a record at that.<br>Do you want to overwrite this record?<html>");
-						if (result == JOptionPane.YES_OPTION) {
-							
-						}
-						else {
-							
-						}
-					}
-					else {						
-						String[] TypeList = { "Boolean", "Number", "Text"};
-						String type = JOptionPane.showInputDialog("<html>Enter one of the following three:<br>Boolean, Number, Text<html>");
-						
-						if (type.equals("Boolean")) {
-							RecordBoolean[i] = new RecordBoolean(start.USER_ID);
-							types[i] = 0;
-							exist[i] = true;
-						}
-						else if (type.equals("Number")) {
-							RecordNumber[i] = new RecordNumber(start.USER_ID);
-							types[i] = 1;
-							exist[i] = true;
-						}
-						else if (type.equals("Text")) {
-							RecordText[i] = new RecordText(start.USER_ID);
-							types[i] = 2;
-							exist[i] = true;
-						}
-						else {
-							new Alert("Error", "Incorrect type input.");
-						}
-					}
-				}
-	        });
-			Button1[i].addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						if (types[i] == 0) {
-
-						}
-						else if (types[i] == 1) {
-
-						}
-						else {
-
-						}
-					}
-					else {
-						new Alert("Error", "There is no record at this.");
-					}
-				}
-	        });
-			Button2[i].addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						int result = JOptionPane.showConfirmDialog(null, "Do your really want to delete this data?");
-						if (result == JOptionPane.YES_OPTION) {
-							
-						}
-						else {
-							
-						}
-						
-						if (true) {
-							if (types[i] == 0) {
-								RecordBoolean[i] = null;
-							}
-							else if (types[i] == 1) {
-								RecordNumber[i] = null;
-							}
-							else {
-								RecordText[i] = null;
-							}
-							exist[i] = false;
-						}
-					}
-					else {
-						new Alert("Error", "There is no record at this.");
-					}
-				}
-	        });
-			Button3[i].addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						
-					}
-					else {
-						new Alert("Error", "There is no record at this.");
-					}
-				}
-	        });
-			Button4[i].addActionListener(new ActionListener() {	
-				public void actionPerformed(ActionEvent e) {
-					if (exist[i] == true) {
-						int result = JOptionPane.showConfirmDialog(null, "Do your really want to send this data?");
-						if (result == JOptionPane.YES_OPTION) {
-							
-						}
-						else {
-							
-						}
-					}
-					else {
-						new Alert("Error", "There is no record at this.");
-					}
-				}
-	        });
+			writeDataBtn[i] = new RoundedButton("기록하기");
+			Button1[i] = new RoundedButton("기록열람");
+			Button2[i] = new RoundedButton("차트화");
+			Button3[i] = new RoundedButton("기록전송");
+			Button4[i] = new RoundedButton(" X ");
 		}
-		
+			
 		Font f1 = new Font("돋움", Font.BOLD, 20);
 		JPanel panel[] = new JPanel[10];
 		if (idx > 0) {
-        	String EveName[] = CategoryProcess.checkCatCname(conn, stmt, ID, idx);
+			String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
     		for (int i=0; i < idx; i++) {
     			panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
             	panel[i].setBackground(Color.ORANGE);
@@ -264,7 +151,7 @@ public class UserFrame extends JFrame {
                 Component horizontalStrut6 = Box.createHorizontalStrut(50);
                 panel[i].add(horizontalStrut6);
                 
-                panel[i].add(Button0[i]);
+                panel[i].add(writeDataBtn[i]);
                 panel[i].add(Button1[i]);
                 panel[i].add(Button2[i]);
                 panel[i].add(Button3[i]);
@@ -273,43 +160,6 @@ public class UserFrame extends JFrame {
                 MainArea.add(panel[i], gbc);
     		}
         }
-        
-		btnAddEvent.addActionListener(new ActionListener() {	
-			public void actionPerformed(ActionEvent e) {
-				if (idx < 10) {					
-		        	panel[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		        	panel[i].setBackground(Color.ORANGE);
-		        	panel[i].setPreferredSize(new Dimension(970, 70));
-		        	
-		            gbc.gridy = i;
-		            gbc.gridx = 0;
-		            panel[i].add(new JLabel("Name of Event")).setFont(f1);
-		            Component horizontalStrut6 = Box.createHorizontalStrut(50);
-		            panel[i].add(horizontalStrut6);
-		            panel[i].add(new JButton("기록 보기"));
-		            panel[i].add(new JButton("기록 추가"));
-		            panel[i].add(new JButton("기록 이미지"));
-		            panel[i].add(new JButton("전송"));
-		            
-		            MainArea.add(panel[i], gbc);
-		        	i++;
-				}
-				else {
-					new Alert("Error", "You cannot create more than 10 records.");
-				}
-			}
-        });
-		btnDelEvent.addActionListener(new ActionListener() {	
-			public void actionPerformed(ActionEvent e) {
-				if (i > 0) {
-					panel[i] = null;
-					i--;
-				}
-				else {
-					new Alert("Error", "There is currently no record to delete.");
-				}
-			}
-        });
 
 		setVisible(true);
 		
@@ -324,7 +174,7 @@ public class UserFrame extends JFrame {
 		btnAddEvent.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddEventFrame frame = new AddEventFrame(conn, stmt, ID);
+				AddEventFrame frame = new AddEventFrame(conn, stmt, ID, name);
 			}
         });
 		PaymentBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -342,7 +192,61 @@ public class UserFrame extends JFrame {
                 }
             }
         });
+		writeDataBtn[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("[writeDataBtn] DEBUG0");
+				String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
+				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[0]);
+				if (EveType.equals("bool")) {
+					RecordBoolean[0] = new RecordBoolean(conn, stmt, ID, EveName[0]);
+				}
+				else if(EveType.equals("num")) {
+					//RecordNumber[0] = new RecordNumber(conn, stmt, ID, EveName[0]);
+				}
+				else if(EveType.equals("text")) {
+					//RecordText[0] = new RecordText(conn, stmt, ID, EveName[0]);
+				}
+			}
+		});
 		
+		writeDataBtn[1].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
+				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[1]);
+				
+				if (EveType.equals("bool")) {
+					RecordBoolean[1] = new RecordBoolean(conn, stmt, ID, EveName[1]);
+				}
+				else if(EveType.equals("num")) {
+					//RecordNumber[1] = new RecordNumber(conn, stmt, ID, EveName[1]);
+				}
+				else if(EveType.equals("text")) {
+					//RecordText[1] = new RecordText(conn, stmt, ID, EveName[1]);
+				}
+			}
+		});
+		
+		writeDataBtn[2].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String EveName[] = UserEventProcess.checkEveCname(conn, stmt, ID, idx, name);
+				String EveType = UserEventProcess.checkEveType(conn, stmt, EveName[2]);
+				
+				if (EveType.equals("bool")) {
+					RecordBoolean[2] = new RecordBoolean(conn, stmt, ID, EveName[2]);
+				}
+				else if(EveType.equals("num")) {
+					//RecordNumber[2] = new RecordNumber(conn, stmt, ID, EveName[2]);
+				}
+				else if(EveType.equals("text")) {
+					//RecordText[2] = new RecordText(conn, stmt, ID, EveName[2]);
+				}
+			}
+			
+		});
 	}
 
 }
+
