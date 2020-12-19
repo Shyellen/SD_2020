@@ -1,7 +1,7 @@
 # SD_2020
 ## 2020 KNU Software Design(005) Team 6
 
-### 결과보고서 발표 영상 : https://youtu.be/kxtgbn6LXq0
+
 ### 시연영상 : https://youtu.be/iCitJNi6xT8
 
 - 프로젝트 명: Health Care Software for Public
